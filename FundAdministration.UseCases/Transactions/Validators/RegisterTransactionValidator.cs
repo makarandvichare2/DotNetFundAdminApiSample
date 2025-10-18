@@ -6,17 +6,24 @@ public class RegisterTransactionValidator : AbstractValidator<RegisterTransactio
 {
     public RegisterTransactionValidator()
     {
-        //RuleFor(x => x.fundName)
-        // .NotEmpty()
-        // .WithMessage("Fund Name is required.");
-        //RuleFor(x => x.currencyCode)
-        // .NotEmpty()
-        // .WithMessage("Currency Code is required.")
-        // .MaximumLength(3)
-        // .MinimumLength(3);
-        //RuleFor(x => x.launchDate)
-        // .NotNull()
-        // .WithMessage("Launch Date is required.");
+        RuleFor(x => x.investorId)
+        .NotEmpty()
+        .Must(id => id != Guid.Empty)
+        .WithMessage("Investor id is required and must be a valid GUID.");
+
+        RuleFor(x => x.transactionType)
+         .IsInEnum()
+         .WithMessage("Transaction Type is required.");
+
+        RuleFor(x => x.amount)
+         .GreaterThanOrEqualTo(0)
+         .WithMessage("Amount must be greater than zero.")
+         .LessThan(int.MaxValue)
+         .WithMessage("Amount exceeds the allowed limit.");
+
+        RuleFor(x => x.transactionDate)
+         .NotNull()
+         .WithMessage("Transaction Date is required.");
 
     }
 }

@@ -2,7 +2,7 @@
 
 public static class DataSchemaConstants
 {
-  public const int MAX_LENGTH_100 = 100;
-  public const int MAX_LENGTH_3 = 3;
+  public const int LENGTH_100 = 100;
+  public const int LENGTH_3 = 3;
 
 }

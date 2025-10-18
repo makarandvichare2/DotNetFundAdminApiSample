@@ -13,13 +13,13 @@ public class FundConfiguration : IEntityTypeConfiguration<Fund>
         builder.OwnsOne(p => p.Currency, p =>
         {
             p.Property(pp => pp.CurrencyCode)
-            .HasMaxLength(DataSchemaConstants.MAX_LENGTH_3)
+            .HasMaxLength(DataSchemaConstants.LENGTH_3)
             .IsRequired()
             .HasColumnName("CurrencyCode");
         });
 
         builder.Property(p => p.FundName)
-        .HasMaxLength(DataSchemaConstants.MAX_LENGTH_100)
+        .HasMaxLength(DataSchemaConstants.LENGTH_100)
         .IsRequired();
 
         builder.HasMany(p => p.Investors)

@@ -18,7 +18,7 @@ public class InvestorConfiguration : IEntityTypeConfiguration<Investor>
         });
 
         builder.Property(p => p.FullName)
-        .HasMaxLength(DataSchemaConstants.MAX_LENGTH_100)
+        .HasMaxLength(DataSchemaConstants.LENGTH_100)
         .IsRequired();
 
         builder.Property(i => i.FundId)

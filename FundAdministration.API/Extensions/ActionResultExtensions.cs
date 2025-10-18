@@ -5,26 +5,22 @@ namespace FundAdministration.API.Extensions;
 
 public static  class ActionResultExtensions
 {
-    public static IActionResult ToActionResult(this Result result, ControllerBase controller)
+    public static ActionResult ToActionResult<T>(this Result<T> result, ControllerBase controller)
     {
-        if(result.IsSuccess)
+        if (result.IsSuccess)
         {
             return controller.Ok(result.Value);
         }
         return result.Status switch
         {
-            ResultStatus.NotFound => controller.NotFound(CreateProblem(result, controller,404,"Resouce not found")),
-            ResultStatus.Invalid => controller.BadRequest(CreateValidationProblem(result,controller)),
+            ResultStatus.NotFound => controller.NotFound(CreateProblem(result, controller, 404, "Resouce not found")),
+            ResultStatus.Invalid => controller.BadRequest(CreateValidationProblem(result, controller)),
             ResultStatus.Unauthorized => controller.Unauthorized(CreateProblem(result, controller, 401, "Unathorized")),
             ResultStatus.Forbidden => controller.Forbid()
         };
     }
-    public static ActionResult ToActionResult<T>(this Result<T> result, ControllerBase controller)
-    {
-        return result.ToActionResult(controller);
-    }
 
-    private static ProblemDetails CreateProblem(Result result, ControllerBase controller, int status, string title)
+    private static ProblemDetails CreateProblem<T>(Result<T> result, ControllerBase controller, int status, string title)
     {
         return new ProblemDetails
         {
@@ -36,7 +32,7 @@ public static  class ActionResultExtensions
         };
     }
 
-    private static ValidationProblemDetails CreateValidationProblem(Result result, ControllerBase controller)
+    private static ValidationProblemDetails CreateValidationProblem<T>(Result<T> result, ControllerBase controller)
     {
         var errors = result.ValidationErrors
             ?.GroupBy(e => e.Identifier)

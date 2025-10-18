@@ -6,17 +6,10 @@ public class DeleteInvestorValidator : AbstractValidator<DeleteInvestorCommand>
 {
     public DeleteInvestorValidator()
     {
-        //RuleFor(x => x.fundName)
-        // .NotEmpty()
-        // .WithMessage("Fund Name is required.");
-        //RuleFor(x => x.currencyCode)
-        // .NotEmpty()
-        // .WithMessage("Currency Code is required.")
-        // .MaximumLength(3)
-        // .MinimumLength(3);
-        //RuleFor(x => x.launchDate)
-        // .NotNull()
-        // .WithMessage("Launch Date is required.");
+        RuleFor(x => x.id)
+        .NotEmpty()
+        .Must(id => id != Guid.Empty)
+        .WithMessage("Investor id is required and must be a valid GUID."); ;
 
     }
 }
