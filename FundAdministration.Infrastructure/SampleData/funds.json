@@ -1,0 +1,27 @@
+[
+  {
+    "fundName": "Global Ventures Fund",
+    "currencyCode": "EUR",
+    "launchDate": "12/12/2000"
+  },
+  {
+    "fundName": "SpringField Partners",
+    "currencyCode": "USD",
+    "launchDate": "12/12/2002"
+  },
+  {
+    "fundName": "LiquidStone Trust",
+    "currencyCode": "GBP",
+    "launchDate": "12/12/2004"
+  },
+  {
+    "fundName": "FirstTree Holdings",
+    "currencyCode": "CHF",
+    "launchDate": "12/12/2006"
+  },
+  {
+    "fundName": "GoldView Sons & Co",
+    "currencyCode": "EUR",
+    "launchDate": "12/12/2020"
+  }
+]

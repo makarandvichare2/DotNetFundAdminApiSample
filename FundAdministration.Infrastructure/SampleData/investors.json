@@ -1,0 +1,27 @@
+[
+  {
+    "fullName": "Capital Ventures",
+    "emailId": "EUR",
+    "fundName": "Global Ventures Fund"
+  },
+  {
+    "fullName": "Wealth Builders",
+    "emailId": "USD",
+    "fundName": "Global Ventures Fund"
+  },
+  {
+    "fullName": "Asset Management",
+    "emailId": "GBP",
+    "fundName": "LiquidStone Trust"
+  },
+  {
+    "fullName": "US Bank",
+    "emailId": "CHF",
+    "fundName": "FirstTree Holdings"
+  },
+  {
+    "fullName": "Nexus Group",
+    "emailId": "EUR",
+    "fundName": "SpringField Partners"
+  }
+]

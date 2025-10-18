@@ -1,0 +1,17 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/FundAdministration.API.Tests/bin/Debug/net8.0
+/FundAdministration.API/bin/Debug/net8.0
+/FundAdministration.API/obj
+/FundAdministration.API.Tests/obj
+/FundAdministration.Core/bin/Debug/net8.0
+/FundAdministration.Core/obj
+/FundAdministration.Infrastructure/bin/Debug/net8.0
+/FundAdministration.Infrastructure/obj
+/FundAdministration.UseCases/bin/Debug/net8.0
+/FundAdministration.UseCases/obj
+/FundAdministration.UseCases.Tests/bin/Debug/net8.0
+/FundAdministration.UseCases.Tests/obj
+/.vs
