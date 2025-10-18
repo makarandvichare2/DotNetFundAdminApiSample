@@ -8,7 +8,7 @@ public class GetInvestorHandler(IGetInvestorQueryService _query)
 {
   public async Task<Result<CreateInvestorDataDTO>> Handle(GetInvestorQuery request, CancellationToken cancellationToken)
   {
-    var result = await _query.InvestorDataAsync();
+    var result = await _query.InvestorDataAsync(request.guid);
 
     return Result.Success(result);
   }

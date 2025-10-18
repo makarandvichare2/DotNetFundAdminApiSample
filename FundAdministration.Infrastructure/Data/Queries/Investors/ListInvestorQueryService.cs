@@ -10,6 +10,7 @@ public class ListInvestorQueryService(AppDbContext _db) : IListInvestorQueryServ
     {
         var result = await _db.Database.SqlQuery<InvestorListDTO>(
           @$"SELECT 
+                    Guid,
                     FundName,
                     CurrencyCode,
                     LaunchDate

@@ -34,11 +34,11 @@ public class FundController : ControllerBase
     }
 
     [HttpGet]
-    [Route("GetFund")]
+    [Route("GetFund/{guid}")]
     [ProducesResponseType(typeof(CreateFundDataDTO), StatusCodes.Status200OK)]
-    public async Task<ActionResult<CreateFundDataDTO>> GetFundAsync()
+    public async Task<ActionResult<CreateFundDataDTO>> GetFundAsync(Guid guid)
     {
-        Result<CreateFundDataDTO> result = await mediator.Send(new GetFundQuery());
+        Result<CreateFundDataDTO> result = await mediator.Send(new GetFundQuery(guid));
 
         if (result.IsSuccess)
         {
@@ -73,7 +73,7 @@ public class FundController : ControllerBase
     }
 
     [HttpPut]
-    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> UpdateFund(
         [FromBody] UpdateFundRequest request)
     {

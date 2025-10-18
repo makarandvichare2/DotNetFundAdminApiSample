@@ -3,4 +3,4 @@ using Ardalis.SharedKernel;
 
 namespace FundAdministration.UseCases.Funds.Get;
 
-public record GetFundQuery() : IQuery<Result<CreateFundDataDTO>>;
+public record GetFundQuery(Guid guid) : IQuery<Result<CreateFundDataDTO>>;

@@ -2,5 +2,5 @@
 
 public interface IGetFundQueryService
 {
-  Task<CreateFundDataDTO> FundDataAsync();
+  Task<CreateFundDataDTO> FundDataAsync(Guid guid);
 }

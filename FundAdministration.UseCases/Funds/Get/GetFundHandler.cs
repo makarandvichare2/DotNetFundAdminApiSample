@@ -8,7 +8,7 @@ public class GetFundHandler(IGetFundQueryService _query)
 {
   public async Task<Result<CreateFundDataDTO>> Handle(GetFundQuery request, CancellationToken cancellationToken)
   {
-    var result = await _query.FundDataAsync();
+    var result = await _query.FundDataAsync(request.guid);
 
     return Result.Success(result);
   }

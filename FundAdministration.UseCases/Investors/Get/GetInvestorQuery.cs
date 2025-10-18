@@ -3,4 +3,4 @@ using Ardalis.SharedKernel;
 
 namespace FundAdministration.UseCases.Investors.Get;
 
-public record GetInvestorQuery() : IQuery<Result<CreateInvestorDataDTO>>;
+public record GetInvestorQuery(Guid guid) : IQuery<Result<CreateInvestorDataDTO>>;

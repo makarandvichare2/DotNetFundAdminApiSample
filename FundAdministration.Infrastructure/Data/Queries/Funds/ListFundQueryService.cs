@@ -9,6 +9,7 @@ public class ListFundQueryService(AppDbContext _db) : IListFundQueryService
     {
         var result = await _db.Database.SqlQuery<FundListDTO>(
           @$"SELECT 
+                    Guid,
                     FundName,
                     CurrencyCode,
                     LaunchDate

@@ -2,5 +2,5 @@
 
 public interface IGetInvestorQueryService
 {
-  Task<CreateInvestorDataDTO> InvestorDataAsync();
+  Task<CreateInvestorDataDTO> InvestorDataAsync(Guid guid);
 }
