@@ -2,7 +2,6 @@
 using Ardalis.Result;
 using Ardalis.SharedKernel;
 using FluentValidation;
-using FundAdministration.Core.Funds;
 using FundAdministration.Core.Investors;
 using FundAdministration.Infrastructure.Data;
 
@@ -15,29 +14,42 @@ public class UpdateInvestorHandler(IEfRepository<Investor> _repository,
     public async Task<Result<bool>> Handle(UpdateInvestorCommand request,
       CancellationToken cancellationToken)
     {
-        _validator.ValidateAndThrow(request);
-
-        var existingFund = await _repository.GetByIdAsync(request.guid, cancellationToken);
-
-        Guard.Against.Null(existingFund, nameof(existingFund));
-
-        if (request.fullName.HasValue)
+        try
         {
-            existingFund.UpdateFullName(request.fullName.Value);
+            _validator.ValidateAndThrow(request);
+
+            var existingFund = await _repository.GetByGuidAsync(request.guid, cancellationToken);
+
+            Guard.Against.Null(existingFund, nameof(existingFund));
+
+            if (request.fullName.HasValue)
+            {
+                existingFund.UpdateFullName(request.fullName.Value);
+            }
+
+            if (request.emailId.HasValue)
+            {
+                existingFund.UpdateEmail(request.emailId.Value);
+            }
+
+            if (request.fundId.HasValue)
+            {
+                existingFund.UpdateFundId(request.fundId.Value);
+            }
+
+            await _repository.UpdateAsync(existingFund, cancellationToken);
+
+            return Result.Success(true);
         }
-
-        if (request.emailId.HasValue)
+        catch (ValidationException ex)
         {
-            existingFund.UpdateEmail(request.emailId.Value);
+            var errors = ex.Errors.Select(e => new ValidationError(e.PropertyName, e.ErrorMessage));
+            return Result.Invalid(errors);
         }
-
-        if (request.fundId.HasValue)
+        catch (Exception ex)
         {
-            existingFund.UpdateFundId(request.fundId.Value);
-        }    
-
-        await _repository.UpdateAsync(existingFund, cancellationToken);
-
-        return true;
+            // _logger.LogError(ex, "Error creating fund");
+            return Result.Error(ex.Message);
+        }
     }
 }

@@ -15,15 +15,28 @@ public class CreateInvestorHandler(IEfRepository<Investor> _repository,
     public async Task<Result<Guid>> Handle(CreateInvestorCommand request,
       CancellationToken cancellationToken)
     {
-        _validator.ValidateAndThrow(request);
+        try
+        {
+            _validator.ValidateAndThrow(request);
 
-        var newItem = new Investor(
-        request.fullName,
-        new Email(request.emailId),
-        request.fundId
-        );
-        var createdItem = await _repository.AddAsync(newItem, cancellationToken);
+            var newItem = new Investor(
+                request.fullName,
+                new Email(request.emailId),
+                request.fundId
+            );
+            var createdItem = await _repository.AddAsync(newItem, cancellationToken);
 
-        return createdItem.GuId;
+            return Result.Success(createdItem.GuId);
+        }
+        catch (ValidationException ex)
+        {
+            var errors = ex.Errors.Select(e => new ValidationError(e.PropertyName, e.ErrorMessage));
+            return Result.Invalid(errors);
+        }
+        catch (Exception ex)
+        {
+            // _logger.LogError(ex, "Error creating fund");
+            return Result.Error(ex.Message);
+        }
     }
 }

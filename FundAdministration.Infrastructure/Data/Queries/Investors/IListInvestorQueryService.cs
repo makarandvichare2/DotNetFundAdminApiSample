@@ -1,6 +1,6 @@
 ﻿using FundAdministration.Common.Investors;
 
-namespace FundAdministration.Infrastructure.Data.Queries.Funds;
+namespace FundAdministration.Infrastructure.Data.Queries.Investors;
 
 public interface IListInvestorQueryService
 {

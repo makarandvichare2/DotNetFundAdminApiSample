@@ -2,6 +2,7 @@
 using Ardalis.SharedKernel;
 using FundAdministration.Infrastructure.Data;
 using FundAdministration.Infrastructure.Data.Queries.Funds;
+using FundAdministration.Infrastructure.Data.Queries.Investors;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

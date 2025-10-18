@@ -1,6 +1,7 @@
 ﻿using Ardalis.Result;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace FundAdministration.Common.Filters
 {
@@ -16,13 +17,10 @@ namespace FundAdministration.Common.Filters
         {
             
             var objectResult = context.Result as ObjectResult;
-            if (objectResult.Value is Result<object> && ((Result<object>)objectResult.Value).Status == ResultStatus.Error)
+            if(objectResult.StatusCode == StatusCodes.Status500InternalServerError)
             {
-                LogError(context, ((Result<object>)objectResult.Value).Errors);
-            }
-            else
-            {
-                LogError(context, ((Result)objectResult.Value).Errors);
+                LogError(context, (string[])objectResult.Value);
+                SetGenericErrorMessage(objectResult);
             }
         }
 
@@ -37,6 +35,11 @@ namespace FundAdministration.Common.Filters
             string actionName = context.ActionDescriptor.DisplayName;
             string errors = errorsList != null ? string.Join(", ", errorsList) : "No error details";
             _logger.LogError("Error occurred in action {Action}: {Errors}", actionName, errors);
+        }
+
+        private void SetGenericErrorMessage(ObjectResult objectResult)
+        {
+            objectResult.Value = "Error occured";
         }
     }
 }

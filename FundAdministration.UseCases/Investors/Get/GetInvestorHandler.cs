@@ -1,7 +1,7 @@
 ﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
 using FundAdministration.Common.Investors;
-using FundAdministration.Infrastructure.Data.Queries.Funds;
+using FundAdministration.Infrastructure.Data.Queries.Investors;
 
 namespace FundAdministration.UseCases.Investors.Get;
 
@@ -10,8 +10,16 @@ public class GetInvestorHandler(IGetInvestorQueryService _query)
 {
   public async Task<Result<CreateInvestorDataDTO>> Handle(GetInvestorQuery request, CancellationToken cancellationToken)
   {
-    var result = await _query.InvestorDataAsync(request.guid);
+        try
+        {
+            var result = await _query.InvestorDataAsync(request.guid);
 
-    return Result.Success(result);
-  }
+            return Result.Success(result);
+        }
+        catch (Exception ex)
+        {
+            // _logger.LogError(ex, "Error creating fund");
+            return Result.Error(ex.Message);
+        }
+    }
 }

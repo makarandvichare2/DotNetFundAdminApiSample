@@ -1,7 +1,7 @@
 ﻿using FundAdministration.Common.Investors;
 using Microsoft.EntityFrameworkCore;
 
-namespace FundAdministration.Infrastructure.Data.Queries.Funds;
+namespace FundAdministration.Infrastructure.Data.Queries.Investors;
 
 public class ListInvestorQueryService(AppDbContext _db) : IListInvestorQueryService
 {
@@ -9,12 +9,13 @@ public class ListInvestorQueryService(AppDbContext _db) : IListInvestorQueryServ
     {
         var result = await _db.Database.SqlQuery<InvestorListDTO>(
           @$"SELECT 
-                    Guid,
-                    FundName,
-                    CurrencyCode,
-                    LaunchDate
-             FROM Funds 
-             Order by FundName
+                    i.Guid,
+                    FullName,
+                    EmailId,
+                    FundName
+             FROM Investors i Join Funds f
+             ON i.FundId = f.Id
+             Order by FullName
         ")
           .ToListAsync();
 
