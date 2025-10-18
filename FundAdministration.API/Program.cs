@@ -7,6 +7,7 @@ using FundAdministration.Infrastructure.Data;
 using FundAdministration.UseCases.Funds.Create;
 using FundAdministration.UseCases.Funds.Validators;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -55,7 +56,7 @@ static async Task SeedDatabase(WebApplication app)
     try
     {
         var context = services.GetRequiredService<AppDbContext>();
-        //context.Database.Migrate(); // uncomment for creating the db on running the api
+       // context.Database.Migrate(); // uncomment for creating the db on running the api
         context.Database.EnsureCreated();
         await SeedData.InitializeAsync(context);
     }

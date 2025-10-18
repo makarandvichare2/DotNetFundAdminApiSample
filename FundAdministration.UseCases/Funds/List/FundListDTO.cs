@@ -2,5 +2,5 @@
 
 public record FundListDTO(
     string fundName,
-    string currency,
+    string currencyCode,
     DateTime launchDate);

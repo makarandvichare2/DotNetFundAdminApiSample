@@ -1,6 +1,7 @@
 ﻿using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
 using FundAdministration.Core.Base;
+using FundAdministration.Core.Investors;
 using FundAdministration.Core.Transactions.Enum;
 
 namespace FundAdministration.Core.Transactions;
@@ -21,9 +22,13 @@ public class Transaction : ApiEntityBase, IAggregateRoot
         InvestorId = investorId;
         TransactionType = transactionType;
         Amount = amount;
+        TransactionDate = transactionDate;
     }
     public int InvestorId { get; private set; }
     public TransactionType TransactionType { get; private set; }
     public decimal Amount { get; private set; }
     public DateTime TransactionDate { get; private set; }
+
+    public Investor Investor { get; set; }
+
 }

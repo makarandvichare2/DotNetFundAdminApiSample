@@ -2,6 +2,7 @@
 using Ardalis.SharedKernel;
 using FundAdministration.Core.Base;
 using FundAdministration.Core.Funds;
+using FundAdministration.Core.Transactions;
 
 namespace FundAdministration.Core.Investors;
 
@@ -23,6 +24,11 @@ public class Investor : ApiEntityBase, IAggregateRoot
     public string FullName { get; private set; }
     public Email Email { get; private set; }
     public int FundId { get; private set; }
+
+    public Fund Fund { get; set; }
+
+    public ICollection<Transaction> Transactions { get; set; }
+
     public void UpdateEmail(string emailId) => Email = new Email(emailId);
 
     public void UpdateFullName(string newFullName)

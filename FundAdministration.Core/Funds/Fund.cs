@@ -1,6 +1,8 @@
 ﻿using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
 using FundAdministration.Core.Base;
+using FundAdministration.Core.Investors;
+using FundAdministration.Core.Transactions;
 using System.Xml.Linq;
 
 namespace FundAdministration.Core.Funds;
@@ -23,6 +25,9 @@ public class Fund : ApiEntityBase, IAggregateRoot
     public string FundName { get; private set; }
     public Currency Currency { get; private set; }
     public DateTime LaunchDate { get; private set; }
+
+    public ICollection<Investor> Investors { get; set; }
+
     public void UpdateCurrency(string currencyCode) => Currency = new Currency(currencyCode);
 
     public void UpdateFundName(string newFundName)
