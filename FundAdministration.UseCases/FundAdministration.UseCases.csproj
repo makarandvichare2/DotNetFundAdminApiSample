@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FundAdministration.Core\FundAdministration.Core.csproj" />
-    <ProjectReference Include="..\FundAdministration.DTOs\FundAdministration.Common.csproj" />
+    <ProjectReference Include="..\FundAdministration.DTOs\FundAdministration.DTOs.csproj" />
     <ProjectReference Include="..\FundAdministration.Infrastructure\FundAdministration.Infrastructure.csproj" />
   </ItemGroup>
 

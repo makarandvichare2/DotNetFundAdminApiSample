@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FundAdministration.DTOs\FundAdministration.Common.csproj" />
+    <ProjectReference Include="..\FundAdministration.DTOs\FundAdministration.DTOs.csproj" />
     <ProjectReference Include="..\FundAdministration.Infrastructure\FundAdministration.Infrastructure.csproj" />
     <ProjectReference Include="..\FundAdministration.UseCases\FundAdministration.UseCases.csproj" />
   </ItemGroup>
