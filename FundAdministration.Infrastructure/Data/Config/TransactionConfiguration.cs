@@ -8,8 +8,15 @@ public class TransactionConfiguration : IEntityTypeConfiguration<Transaction>
 {
   public void Configure(EntityTypeBuilder<Transaction> builder)
   {
-    builder.Property(p => p.Amount)
+
+        builder.ToTable("Transactions");
+        builder.HasKey(x => x.Id);
+
+        builder.Property(p => p.Amount)
         .HasPrecision(18, 2)
         .IsRequired();
-  }
+
+        builder.Property(i => i.InvestorId)
+                   .IsRequired();
+    }
 }

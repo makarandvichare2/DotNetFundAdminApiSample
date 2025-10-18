@@ -1,0 +1,32 @@
+[
+  {
+    "investor": "Capital Ventures",
+    "transactionType": "Subscription",
+    "amount": 203300,
+    "transactionDate": "12/12/2000"
+  },
+  {
+    "investor": "Wealth Builders",
+    "transactionType": "Subscription",
+    "amount": 203300,
+    "transactionDate": "12/12/2001"
+  },
+  {
+    "investor": "Asset Management",
+    "transactionType": "Subscription",
+    "amount": 2065600,
+    "transactionDate": "12/12/2002"
+  },
+  {
+    "investor": "US Bank",
+    "transactionType": "Redemption",
+    "amount": 232000,
+    "transactionDate": "12/12/2002"
+  },
+  {
+    "investor": "Nexus Group",
+    "transactionType": "Redemption",
+    "amount": 555000,
+    "transactionDate": "12/12/2003"
+  }
+]

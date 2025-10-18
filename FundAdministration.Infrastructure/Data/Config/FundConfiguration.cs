@@ -8,10 +8,13 @@ public class FundConfiguration : IEntityTypeConfiguration<Fund>
 {
   public void Configure(EntityTypeBuilder<Fund> builder)
   {
-
+        builder.ToTable("Funds");
+        builder.HasKey(p=>p.Id);
         builder.OwnsOne(p => p.Currency, p =>
         {
             p.Property(pp => pp.CurrencyCode)
+            .HasMaxLength(DataSchemaConstants.MAX_LENGTH_3)
+            .IsRequired()
             .HasColumnName("CurrencyCode");
         });
 
@@ -19,8 +22,9 @@ public class FundConfiguration : IEntityTypeConfiguration<Fund>
         .HasMaxLength(DataSchemaConstants.MAX_LENGTH_100)
         .IsRequired();
 
-        builder.Property(p => p.Currency)
-        .HasMaxLength(DataSchemaConstants.MAX_LENGTH_3)
-        .IsRequired();
+        builder.HasMany(p => p.Investors)
+               .WithOne(p => p.Fund)
+               .HasForeignKey(p => p.FundId)
+               .OnDelete(DeleteBehavior.Cascade);
     }
 }

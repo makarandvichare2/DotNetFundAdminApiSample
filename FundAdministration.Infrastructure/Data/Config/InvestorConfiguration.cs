@@ -8,6 +8,9 @@ public class InvestorConfiguration : IEntityTypeConfiguration<Investor>
 {
   public void Configure(EntityTypeBuilder<Investor> builder)
   {
+        builder.ToTable("Investors");
+        builder.HasKey(x => x.Id);
+
         builder.OwnsOne(p => p.Email, p =>
         {
             p.Property(pp => pp.EmailId)
@@ -17,5 +20,14 @@ public class InvestorConfiguration : IEntityTypeConfiguration<Investor>
         builder.Property(p => p.FullName)
         .HasMaxLength(DataSchemaConstants.MAX_LENGTH_100)
         .IsRequired();
-  }
+
+        builder.Property(i => i.FundId)
+               .IsRequired();
+
+        builder.HasMany(p => p.Transactions)
+               .WithOne(p => p.Investor)
+               .HasForeignKey(p => p.InvestorId)
+               .OnDelete(DeleteBehavior.Cascade);
+
+    }
 }

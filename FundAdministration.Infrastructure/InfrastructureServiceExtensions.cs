@@ -4,6 +4,8 @@ using FundAdministration.Infrastructure.Data;
 using FundAdministration.Infrastructure.Data.Queries.Funds;
 using FundAdministration.UseCases.Funds.Get;
 using FundAdministration.UseCases.Funds.List;
+using FundAdministration.UseCases.Investors.Get;
+using FundAdministration.UseCases.Investors.List;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +26,9 @@ public static class InfrastructureServiceExtensions
     services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
     services.AddScoped<IListFundQueryService, ListFundQueryService>();
     services.AddScoped<IGetFundQueryService, GetFundQueryService>();
+        services.AddScoped<IListInvestorQueryService, ListInvestorQueryService>();
+        services.AddScoped<IGetInvestorQueryService, GetInvestorQueryService>();
 
-    return services;
+        return services;
   }
 }
