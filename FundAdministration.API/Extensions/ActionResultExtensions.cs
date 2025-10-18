@@ -5,24 +5,55 @@ namespace FundAdministration.API.Extensions;
 
 public static  class ActionResultExtensions
 {
-    public static IActionResult ToActionResult<T>(this Result<T> result)
+    public static IActionResult ToActionResult(this Result result, ControllerBase controller)
     {
+        if(result.IsSuccess)
+        {
+            return controller.Ok(result.Value);
+        }
         return result.Status switch
         {
-            ResultStatus.Ok => new OkObjectResult(result.Value),
-            ResultStatus.Created => new CreatedResult(string.Empty, result.Value),
-            ResultStatus.NotFound => new NotFoundResult(),
-            ResultStatus.Invalid => new BadRequestObjectResult(result.ValidationErrors),
-            ResultStatus.Unauthorized => new UnauthorizedResult(),
-            ResultStatus.Forbidden => new ForbidResult(),
-            ResultStatus.Error => new ObjectResult(result.Errors)
-            {
-                StatusCode = StatusCodes.Status500InternalServerError
-            },
-            _ => new ObjectResult(result)
-            {
-                StatusCode = StatusCodes.Status500InternalServerError
-            }
+            ResultStatus.NotFound => controller.NotFound(CreateProblem(result, controller,404,"Resouce not found")),
+            ResultStatus.Invalid => controller.BadRequest(CreateValidationProblem(result,controller)),
+            ResultStatus.Unauthorized => controller.Unauthorized(CreateProblem(result, controller, 401, "Unathorized")),
+            ResultStatus.Forbidden => controller.Forbid()
         };
     }
+    public static ActionResult ToActionResult<T>(this Result<T> result, ControllerBase controller)
+    {
+        return result.ToActionResult(controller);
+    }
+
+    private static ProblemDetails CreateProblem(Result result, ControllerBase controller, int status, string title)
+    {
+        return new ProblemDetails
+        {
+            Type = $"https://httpstatuses.com/{status}",
+            Title = title,
+            Detail = result.Errors.FirstOrDefault(),
+            Status = status,
+            Instance = controller.HttpContext.Request.Path
+        };
+    }
+
+    private static ValidationProblemDetails CreateValidationProblem(Result result, ControllerBase controller)
+    {
+        var errors = result.ValidationErrors
+            ?.GroupBy(e => e.Identifier)
+            .ToDictionary(g => g.Key ?? "General", g => g.Select(e => e.ErrorMessage).ToArray())
+            ?? new Dictionary<string, string[]>
+            {
+                { "General", result.Errors.ToArray() }
+            };
+
+        return new ValidationProblemDetails(errors)
+        {
+            Type = "https://httpstatuses.com/400",
+            Title = "Validation failed",
+            Detail = "One or more validation errors occurred.",
+            Status = 400,
+            Instance = controller.HttpContext.Request.Path
+        };
+    }
+
 }

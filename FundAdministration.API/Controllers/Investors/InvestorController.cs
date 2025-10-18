@@ -9,6 +9,10 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 namespace FundAdministration.API.Controllers.Investors;
 
+/// <summary>
+/// API Controller for managing investors.
+/// Provides endpoints to list, get, create, update, and delete investors.
+/// </summary>
 [ApiController]
 [Route("[controller]")]
 public class InvestorController : ControllerBase
@@ -19,15 +23,24 @@ public class InvestorController : ControllerBase
         this.mediator = mediator;
     }
 
+    /// <summary>
+    /// Retrieves a list of all investors.
+    /// </summary>
+    /// <returns>A list of <see cref="InvestorListDTO"/> investors.</returns>
     [HttpGet]
     [ProducesResponseType(typeof(List<InvestorListDTO>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetListAsync()
     {
         var result = await mediator.Send(new ListInvestorQuery());
 
-        return result.ToActionResult();
+        return result.ToActionResult(this);
     }
 
+    /// <summary>
+    /// Retrieves a specific investor by their unique identifier.
+    /// </summary>
+    /// <param name="guid">The unique identifier of the investor.</param>
+    /// <returns>A <see cref="CreateInvestorDataDTO"/> representing the investor if found; otherwise, a 404 Not Found response.</returns>
     [HttpGet("{guid:guid}")]
     [ProducesResponseType(typeof(CreateInvestorDataDTO), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -35,9 +48,14 @@ public class InvestorController : ControllerBase
     {
         var result = await mediator.Send(new GetInvestorQuery(guid));
 
-        return result.ToActionResult();
+        return result.ToActionResult(this);
     }
 
+    /// <summary>
+    /// Creates a new investor.
+    /// </summary>
+    /// <param name="request">The <see cref="CreateInvestorRequest"/> containing investor details.</param>
+    /// <returns>A 201 Created response if successful; otherwise, a 400 Bad Request response.</returns>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -51,9 +69,14 @@ public class InvestorController : ControllerBase
             );
         var result = await mediator.Send(command);
 
-        return result.ToActionResult();
+        return result.ToActionResult(this);
     }
 
+    /// <summary>
+    /// Deletes an existing investor by their unique identifier.
+    /// </summary>
+    /// <param name="guid">The unique identifier of the investor to delete.</param>
+    /// <returns>A 204 No Content response if deleted successfully; otherwise, a 404 Not Found response.</returns>
     [HttpDelete("{guid:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -61,9 +84,15 @@ public class InvestorController : ControllerBase
     {
         var command = new DeleteInvestorCommand(guid);
         var result = await mediator.Send(command);
-        return result.ToActionResult();
+        return result.ToActionResult(this);
     }
 
+    /// <summary>
+    /// Updates an existing investor.
+    /// </summary>
+    /// <param name="guid">The unique identifier of the investor to update.</param>
+    /// <param name="request">The <see cref="UpdateInvestorRequest"/> containing updated investor details.</param>
+    /// <returns>A 204 No Content response if updated successfully; otherwise, a 400 Bad Request response.</returns>
     [HttpPut("{guid:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -77,6 +106,6 @@ public class InvestorController : ControllerBase
             );
         var result = await mediator.Send(command);
 
-        return result.ToActionResult();
+        return result.ToActionResult(this);
     }
 }

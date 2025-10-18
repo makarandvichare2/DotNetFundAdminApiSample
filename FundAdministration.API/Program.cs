@@ -1,7 +1,7 @@
 using Ardalis.ListStartupServices;
 using Ardalis.SharedKernel;
 using FluentValidation;
-using FundAdministration.Common.Filters;
+using FundAdministration.API.Middlewares;
 using FundAdministration.Core.Funds;
 using FundAdministration.Infrastructure;
 using FundAdministration.Infrastructure.Data;
@@ -18,12 +18,14 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
     options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 
-builder.Services.AddControllers((options) =>
-{
-    options.Filters.Add<SeriLogErrorFilter>();
-});
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    var xmlFile= $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory,xmlFile);
+    options.IncludeXmlComments(xmlPath);
+});
 
 ConfigureMediatR();
 builder.Services.AddInfrastructureServices(builder.Configuration);
@@ -38,13 +40,16 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        //c.SwaggerEndpoint("v1/swagger.json", "Fund Administration API v1");
+    });
     app.UseDeveloperExceptionPage();
     app.UseShowAllServicesMiddleware();
 }
 
 app.UseAuthorization();
-
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 app.MapControllers();
 
 await SeedDatabase(app);
