@@ -4,7 +4,7 @@ using FluentValidation;
 using FundAdministration.Core.Transactions;
 using FundAdministration.Infrastructure.Data;
 
-namespace FundAdministration.UseCases.Investors.Create;
+namespace FundAdministration.UseCases.Transactions.Register;
 
 public class RegisterTransactionHandler(IEfRepository<Transaction> _repository,
     IValidator<RegisterTransactionCommand> _validator)

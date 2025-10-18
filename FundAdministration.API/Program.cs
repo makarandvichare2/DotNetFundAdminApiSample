@@ -1,7 +1,7 @@
 using Ardalis.ListStartupServices;
 using Ardalis.SharedKernel;
 using FluentValidation;
-using FundAdministration.DTOs.Filters;
+using FundAdministration.Common.Filters;
 using FundAdministration.Core.Funds;
 using FundAdministration.Infrastructure;
 using FundAdministration.Infrastructure.Data;

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace FundAdministration.DTOs.Filters
+namespace FundAdministration.Common.Filters
 {
     public class SeriLogErrorFilter : IActionFilter
     {

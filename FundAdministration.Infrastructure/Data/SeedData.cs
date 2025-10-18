@@ -1,10 +1,9 @@
-﻿using FundAdministration.Core.Funds;
+﻿using FundAdministration.Common.Enum;
+using FundAdministration.Core.Funds;
 using FundAdministration.Core.Investors;
 using FundAdministration.Core.Transactions;
-using FundAdministration.Core.Transactions.Enum;
 using FundAdministration.Infrastructure.Helpers;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Text.Json;
 
 namespace FundAdministration.Infrastructure.Data;

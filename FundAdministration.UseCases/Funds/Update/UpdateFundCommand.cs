@@ -1,6 +1,6 @@
 ﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
-using FundAdministration.DTOs;
+using FundAdministration.Common;
 
 namespace FundAdministration.UseCases.Funds.Update;
 public record UpdateFundCommand

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FundAdministration.Core.Transactions.Enum;
+namespace FundAdministration.Common.Enum;
 
 public enum TransactionType
 {

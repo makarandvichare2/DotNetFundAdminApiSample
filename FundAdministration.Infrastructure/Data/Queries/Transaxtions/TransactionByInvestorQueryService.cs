@@ -1,13 +1,14 @@
 ﻿using FundAdministration.Common.Investors;
+using FundAdministration.Common.Transactions;
 using Microsoft.EntityFrameworkCore;
 
 namespace FundAdministration.Infrastructure.Data.Queries.Investors;
 
-public class ListInvestorQueryService(AppDbContext _db) : IListInvestorQueryService
+public class TransactionByInvestorQueryService(AppDbContext _db) : ITransactionByInvestorQueryService
 {
-    public async Task<IEnumerable<InvestorListDTO>> ListAsync()
+    public async Task<IEnumerable<TransactionListDTO>> ListAsync()
     {
-        var result = await _db.Database.SqlQuery<InvestorListDTO>(
+        var result = await _db.Database.SqlQuery<TransactionListDTO>(
           @$"SELECT 
                     i.Guid,
                     FullName,

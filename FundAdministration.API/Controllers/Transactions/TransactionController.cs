@@ -1,10 +1,7 @@
 using FundAdministration.API.Extensions;
-using FundAdministration.DTOs.Investors;
+using FundAdministration.Common.Investors;
 using FundAdministration.UseCases.Investors.Create;
-using FundAdministration.UseCases.Investors.Delete;
-using FundAdministration.UseCases.Investors.Get;
-using FundAdministration.UseCases.Investors.List;
-using FundAdministration.UseCases.Investors.Update;
+using FundAdministration.UseCases.Transactions.List;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 namespace FundAdministration.API.Controllers.Investors;

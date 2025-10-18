@@ -1,6 +1,6 @@
 ﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
-using FundAdministration.DTOs.Investors;
+using FundAdministration.Common.Investors;
 
 namespace FundAdministration.UseCases.Investors.Get;
 

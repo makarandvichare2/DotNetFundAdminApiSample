@@ -1,6 +1,6 @@
 ﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
-using FundAdministration.DTOs.Funds;
+using FundAdministration.Common.Funds;
 using FundAdministration.Infrastructure.Data.Queries.Funds;
 
 namespace FundAdministration.UseCases.Funds.List;

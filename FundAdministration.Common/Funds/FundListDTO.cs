@@ -1,4 +1,4 @@
-﻿namespace FundAdministration.DTOs.Funds;
+﻿namespace FundAdministration.Common.Funds;
 
 public record FundListDTO(
     Guid guid,

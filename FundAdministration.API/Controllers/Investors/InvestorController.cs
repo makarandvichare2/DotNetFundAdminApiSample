@@ -1,5 +1,5 @@
 using FundAdministration.API.Extensions;
-using FundAdministration.DTOs.Investors;
+using FundAdministration.Common.Investors;
 using FundAdministration.UseCases.Investors.Create;
 using FundAdministration.UseCases.Investors.Delete;
 using FundAdministration.UseCases.Investors.Get;

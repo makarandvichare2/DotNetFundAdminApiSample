@@ -1,4 +1,4 @@
-﻿using FundAdministration.DTOs.Investors;
+﻿using FundAdministration.Common.Investors;
 
 namespace FundAdministration.Infrastructure.Data.Queries.Investors;
 

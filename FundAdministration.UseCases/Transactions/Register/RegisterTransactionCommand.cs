@@ -1,8 +1,8 @@
 ﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
-using FundAdministration.Core.Transactions.Enum;
+using FundAdministration.Common.Enum;
 
-namespace FundAdministration.UseCases.Investors.Create;
+namespace FundAdministration.UseCases.Transactions.Register;
 public record RegisterTransactionCommand
         (
             TransactionType transactionType,

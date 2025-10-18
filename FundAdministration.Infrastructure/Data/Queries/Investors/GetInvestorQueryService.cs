@@ -1,5 +1,5 @@
-﻿using FundAdministration.DTOs;
-using FundAdministration.DTOs.Investors;
+﻿using FundAdministration.Common;
+using FundAdministration.Common.Investors;
 using Microsoft.EntityFrameworkCore;
 
 namespace FundAdministration.Infrastructure.Data.Queries.Investors;

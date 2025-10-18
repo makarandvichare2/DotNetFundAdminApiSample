@@ -1,4 +1,4 @@
-﻿namespace FundAdministration.DTOs.Investors;
+﻿namespace FundAdministration.Common.Investors;
 
 public record InvestorListDTO(
     Guid guid,

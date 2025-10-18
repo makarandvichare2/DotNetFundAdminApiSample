@@ -1,8 +1,8 @@
 ﻿using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
+using FundAdministration.Common.Enum;
 using FundAdministration.Core.Base;
 using FundAdministration.Core.Investors;
-using FundAdministration.Core.Transactions.Enum;
 
 namespace FundAdministration.Core.Transactions;
 
