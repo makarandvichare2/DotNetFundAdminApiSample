@@ -1,4 +1,4 @@
-﻿namespace FundAdministration.Common;
+﻿namespace FundAdministration.DTOs;
 
 public record LookUpDTO<T>(
     T Id,

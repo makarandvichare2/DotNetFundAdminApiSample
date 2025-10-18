@@ -1,5 +1,5 @@
 using FundAdministration.API.Extensions;
-using FundAdministration.Common.Funds;
+using FundAdministration.DTOs.Funds;
 using FundAdministration.UseCases.Funds.Create;
 using FundAdministration.UseCases.Funds.Delete;
 using FundAdministration.UseCases.Funds.Get;

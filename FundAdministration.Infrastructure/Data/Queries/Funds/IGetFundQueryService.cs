@@ -1,4 +1,4 @@
-﻿using FundAdministration.Common.Funds;
+﻿using FundAdministration.DTOs.Funds;
 
 namespace FundAdministration.Infrastructure.Data.Queries.Funds;
 

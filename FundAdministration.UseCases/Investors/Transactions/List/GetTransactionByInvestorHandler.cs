@@ -1,11 +1,11 @@
 ﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
-using FundAdministration.Common.Investors;
+using FundAdministration.DTOs.Investors;
 using FundAdministration.Infrastructure.Data.Queries.Investors;
 
 namespace FundAdministration.UseCases.Investors.List;
 
-public class ListInvestorHandler(IListInvestorQueryService _query)
+public class GetTransactionByInvestorHandler(IListInvestorQueryService _query)
   : IQueryHandler<ListInvestorQuery, Result<IEnumerable<InvestorListDTO>>>
 {
   public async Task<Result<IEnumerable<InvestorListDTO>>> Handle(ListInvestorQuery request, CancellationToken cancellationToken)

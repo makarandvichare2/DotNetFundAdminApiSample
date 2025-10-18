@@ -1,4 +1,4 @@
-﻿namespace FundAdministration.Common.Investors;
+﻿namespace FundAdministration.DTOs.Investors;
 
 public record CreateInvestorDTO(
     string fullName,

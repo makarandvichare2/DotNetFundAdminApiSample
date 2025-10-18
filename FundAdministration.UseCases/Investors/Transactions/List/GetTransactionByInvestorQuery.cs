@@ -4,4 +4,4 @@ using FundAdministration.DTOs.Investors;
 
 namespace FundAdministration.UseCases.Investors.List;
 
-public record ListInvestorQuery() : IQuery<Result<IEnumerable<InvestorListDTO>>>;
+public record GetTransactionByInvestorQuery(Guid guid) : IQuery<Result<IEnumerable<InvestorListDTO>>>;
