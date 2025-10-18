@@ -25,7 +25,7 @@ public class RegisterTransactionHandler(IEfRepository<Transaction> _repository,
             );
             var createdItem = await _repository.AddAsync(newItem, cancellationToken);
 
-            return Result.Success(createdItem.GuId);
+            return Result.Success(createdItem.Id);
         }
         catch (ValidationException ex)
         {

@@ -4,5 +4,5 @@
         Guid guid,
         string fullName,
         string emailId,
-        int fundId);
+        Guid fundId);
 }

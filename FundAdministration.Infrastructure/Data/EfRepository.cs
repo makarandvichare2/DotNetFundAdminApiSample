@@ -9,6 +9,6 @@ public class EfRepository<T>(AppDbContext dbContext) :
 {
     public virtual async Task<T?> GetByGuidAsync(Guid guid, CancellationToken cancellationToken = default)
     {
-        return await dbContext.Set<T>().FirstOrDefaultAsync(o=>o.GuId == guid, cancellationToken: cancellationToken);
+        return await dbContext.Set<T>().FirstOrDefaultAsync(o=>o.Id == guid, cancellationToken: cancellationToken);
     }
 }

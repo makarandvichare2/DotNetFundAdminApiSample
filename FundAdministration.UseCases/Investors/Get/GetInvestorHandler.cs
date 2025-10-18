@@ -12,7 +12,7 @@ public class GetInvestorHandler(IGetInvestorQueryService _query)
   {
         try
         {
-            var result = await _query.InvestorDataAsync(request.guid);
+            var result = await _query.InvestorDataAsync(request.id);
 
             return Result.Success(result);
         }

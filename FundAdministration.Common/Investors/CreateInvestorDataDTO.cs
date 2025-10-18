@@ -2,5 +2,5 @@
 
 public record CreateInvestorDataDTO(
     CreateInvestorDTO investor,
-    List<LookUpDTO<int>> funds
+    List<LookUpDTO<Guid>> funds
     );

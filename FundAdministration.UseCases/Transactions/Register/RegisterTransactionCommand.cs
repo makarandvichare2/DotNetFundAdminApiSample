@@ -8,6 +8,6 @@ public record RegisterTransactionCommand
             TransactionType transactionType,
             decimal amount,
             DateTime transactionDate,
-            int investorId
+            Guid investorId
          ) : ICommand<Result<Guid>>;
 

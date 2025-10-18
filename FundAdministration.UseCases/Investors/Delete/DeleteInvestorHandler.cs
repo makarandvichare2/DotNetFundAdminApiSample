@@ -2,7 +2,6 @@
 using Ardalis.Result;
 using Ardalis.SharedKernel;
 using FluentValidation;
-using FundAdministration.Core.Funds;
 using FundAdministration.Core.Investors;
 using FundAdministration.Infrastructure.Data;
 
@@ -19,7 +18,7 @@ public class DeleteInvestorHandler(IEfRepository<Investor> _repository,
         {
             _validator.ValidateAndThrow(request);
 
-            var existingFund = await _repository.GetByGuidAsync(request.guid, cancellationToken);
+            var existingFund = await _repository.GetByGuidAsync(request.id, cancellationToken);
 
             Guard.Against.Null(existingFund, nameof(existingFund));
 

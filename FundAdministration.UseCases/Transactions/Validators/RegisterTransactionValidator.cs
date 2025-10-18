@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
-using FundAdministration.UseCases.Investors.Delete;
+using FundAdministration.UseCases.Transactions.Register;
 
-namespace FundAdministration.UseCases.Funds.Validators;
-public class DeleteInvestorValidator : AbstractValidator<DeleteInvestorCommand>
+namespace FundAdministration.UseCases.Investors.Validators;
+public class RegisterTransactionValidator : AbstractValidator<RegisterTransactionCommand>
 {
-    public DeleteInvestorValidator()
+    public RegisterTransactionValidator()
     {
         //RuleFor(x => x.fundName)
         // .NotEmpty()

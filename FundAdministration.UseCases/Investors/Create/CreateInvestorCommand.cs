@@ -5,6 +5,6 @@ namespace FundAdministration.UseCases.Investors.Create;
 public record CreateInvestorCommand
         (string fullName,
         string emailId,
-        int fundId
+        Guid fundId
          ) : ICommand<Result<Guid>>;
 

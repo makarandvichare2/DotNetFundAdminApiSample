@@ -5,7 +5,7 @@ using FundAdministration.Common;
 namespace FundAdministration.UseCases.Funds.Update;
 public record UpdateFundCommand
         (
-        Guid guid,
+        Guid id,
         Optional<string> fundName,
         Optional<string> currencyCode,
         Optional<DateTime> launchDate

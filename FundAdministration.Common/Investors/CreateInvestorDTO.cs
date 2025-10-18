@@ -3,6 +3,6 @@
 public record CreateInvestorDTO(
     string fullName,
     string emailId,
-    int fundId,
+    Guid fundId,
     string fundName
 );

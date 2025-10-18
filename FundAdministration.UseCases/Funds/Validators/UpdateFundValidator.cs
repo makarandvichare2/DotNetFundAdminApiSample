@@ -1,5 +1,4 @@
-﻿using FundAdministration.UseCases.Funds.Create;
-using FluentValidation;
+﻿using FluentValidation;
 using FundAdministration.UseCases.Funds.Update;
 
 namespace FundAdministration.UseCases.Funds.Validators;

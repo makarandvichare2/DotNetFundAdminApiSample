@@ -1,10 +1,5 @@
 ﻿using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FundAdministration.Core.Investors
 {

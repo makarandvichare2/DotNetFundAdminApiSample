@@ -3,5 +3,5 @@
     public record CreateInvestorRequest(
         string fullName,
         string emailId,
-        int fundId);
+        Guid fundId);
 }

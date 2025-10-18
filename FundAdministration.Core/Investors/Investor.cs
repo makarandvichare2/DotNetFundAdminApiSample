@@ -11,19 +11,19 @@ public class Investor : ApiEntityBase, IAggregateRoot
     public Investor() { }
     public Investor(string fullName,
     Email email,
-    int fundId
+    Guid fundId
     )
     {
         Guard.Against.NullOrWhiteSpace(fullName, nameof(fullName));
         Guard.Against.NullOrWhiteSpace(email.EmailId, nameof(Email.EmailId));
-        Guard.Against.NegativeOrZero(fundId, nameof(fundId));
+        Guard.Against.Default(fundId, nameof(fundId));
         FullName = fullName;
         Email = email;
         FundId = fundId;
     }
     public string FullName { get; private set; }
     public Email Email { get; private set; }
-    public int FundId { get; private set; }
+    public Guid FundId { get; private set; }
 
     public Fund Fund { get; set; }
 
@@ -36,9 +36,9 @@ public class Investor : ApiEntityBase, IAggregateRoot
         Guard.Against.NullOrWhiteSpace(newFullName, nameof(newFullName));
         FullName = newFullName;
     }
-    public void UpdateFundId(int newFundId)
+    public void UpdateFundId(Guid newFundId)
     {
-        Guard.Against.NegativeOrZero(newFundId, nameof(newFundId));
+        Guard.Against.Default(newFundId, nameof(newFundId));
         FundId = newFundId;
     }
 }

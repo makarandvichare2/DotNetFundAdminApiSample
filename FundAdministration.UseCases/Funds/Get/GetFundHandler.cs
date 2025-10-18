@@ -12,7 +12,7 @@ public class GetFundHandler(IGetFundQueryService _query)
   {
         try
         {
-            var result = await _query.FundDataAsync(request.guid);
+            var result = await _query.FundDataAsync(request.id);
             return Result.Success(result);
         }
         catch (Exception ex)

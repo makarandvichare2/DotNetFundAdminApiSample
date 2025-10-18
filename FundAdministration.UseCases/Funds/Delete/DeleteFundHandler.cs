@@ -18,7 +18,7 @@ public class DeleteFundHandler(IEfRepository<Fund> _repository,
         {
             _validator.ValidateAndThrow(request);
 
-            var existingFund = await _repository.GetByGuidAsync(request.guid, cancellationToken);
+            var existingFund = await _repository.GetByIdAsync(request.id, cancellationToken);
 
             Guard.Against.Null(existingFund, nameof(existingFund));
 

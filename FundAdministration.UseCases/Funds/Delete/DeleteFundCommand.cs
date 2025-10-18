@@ -2,5 +2,5 @@
 using Ardalis.SharedKernel;
 
 namespace FundAdministration.UseCases.Funds.Delete;
-public record DeleteFundCommand( Guid guid ) : ICommand<Result<bool>>;
+public record DeleteFundCommand( Guid id ) : ICommand<Result<bool>>;
 

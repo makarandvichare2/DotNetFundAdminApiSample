@@ -5,9 +5,9 @@ using FundAdministration.Common;
 namespace FundAdministration.UseCases.Investors.Update;
 public record UpdateInvestorCommand
         (
-            Guid guid,
+            Guid id,
             Optional<string> fullName,
             Optional<string> emailId,
-            Optional<int> fundId
+            Optional<Guid> fundId
          ) : ICommand<Result<bool>>;
 

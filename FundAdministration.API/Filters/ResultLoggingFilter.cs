@@ -1,7 +1,5 @@
-﻿using Ardalis.Result;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace FundAdministration.Common.Filters
 {

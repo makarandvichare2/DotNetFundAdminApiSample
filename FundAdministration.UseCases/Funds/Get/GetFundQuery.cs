@@ -4,4 +4,4 @@ using FundAdministration.Common.Funds;
 
 namespace FundAdministration.UseCases.Funds.Get;
 
-public record GetFundQuery(Guid guid) : IQuery<Result<CreateFundDataDTO>>;
+public record GetFundQuery(Guid id) : IQuery<Result<CreateFundDataDTO>>;

@@ -1,7 +1,10 @@
-﻿namespace FundAdministration.API.Controllers.Investors
+﻿using FundAdministration.Common.Enum;
+
+namespace FundAdministration.API.Controllers.Investors
 {
     public record RegisterTransactionRequest(
-        string fullName,
-        string emailId,
-        int fundId);
+        TransactionType transactionType,
+        decimal amount,
+        DateTime transactionDate,
+        Guid investorId);
 }

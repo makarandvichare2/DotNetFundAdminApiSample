@@ -2,8 +2,6 @@
 using Ardalis.SharedKernel;
 using FundAdministration.Core.Base;
 using FundAdministration.Core.Investors;
-using FundAdministration.Core.Transactions;
-using System.Xml.Linq;
 
 namespace FundAdministration.Core.Funds;
 

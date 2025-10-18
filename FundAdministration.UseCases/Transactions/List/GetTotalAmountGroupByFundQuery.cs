@@ -4,4 +4,4 @@ using FundAdministration.Common.Transactions;
 
 namespace FundAdministration.UseCases.Transactions.List;
 
-public record GetTransactionByInvestorQuery(Guid investorId) : IQuery<Result<IEnumerable<TransactionListDTO>>>;
+public record GetTotalAmountGroupByFundQuery() : IQuery<Result<IEnumerable<GroupAmountByFundListDTO>>>;

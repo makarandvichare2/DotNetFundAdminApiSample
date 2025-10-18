@@ -1,7 +1,8 @@
 using FundAdministration.API.Extensions;
-using FundAdministration.Common.Investors;
+using FundAdministration.Common.Transactions;
 using FundAdministration.UseCases.Investors.Create;
 using FundAdministration.UseCases.Transactions.List;
+using FundAdministration.UseCases.Transactions.Register;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 namespace FundAdministration.API.Controllers.Investors;
@@ -17,12 +18,21 @@ public class TransactionController : ControllerBase
     }
 
 
-    [HttpGet("{guid:guid}")]
-    [ProducesResponseType(typeof(CreateInvestorDataDTO), StatusCodes.Status200OK)]
+    [HttpGet("TransactionByInvestor/{guid:guid}")]
+    [ProducesResponseType(typeof(TransactionListDTO), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetTransactionByInvestorAsync(Guid guid)
     {
         var result = await mediator.Send(new GetTransactionByInvestorQuery(guid));
+
+        return result.ToActionResult();
+    }
+
+    [HttpGet("TotalAmountGroupByFund")]
+    [ProducesResponseType(typeof(TransactionListDTO), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetTotalAmountGroupByFundAsync()
+    {
+        var result = await mediator.Send(new GetTotalAmountGroupByFundQuery());
 
         return result.ToActionResult();
     }
@@ -33,10 +43,11 @@ public class TransactionController : ControllerBase
     public async Task<IActionResult> RegisterTransactions(
             [FromBody] RegisterTransactionRequest request)
     {
-        var command = new CreateInvestorCommand(
-            request.fullName,
-            request.emailId,
-            request.fundId
+        var command = new RegisterTransactionCommand(
+            request.transactionType,
+            request.amount,
+            request.transactionDate,
+            request.investorId
             );
         var result = await mediator.Send(command);
 

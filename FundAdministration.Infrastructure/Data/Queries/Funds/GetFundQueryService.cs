@@ -13,7 +13,7 @@ public class GetFundQueryService(AppDbContext _db) : IGetFundQueryService
                 "USD",
                 "GBP"
             };
-        var fund = await _db.Funds.AsNoTracking().FirstOrDefaultAsync(o=>o.GuId == guid);
+        var fund = await _db.Funds.AsNoTracking().FirstOrDefaultAsync(o=>o.Id == guid);
 
 
         var lauchDate = (fund!= null) ? fund.LaunchDate : DateTime.Now;

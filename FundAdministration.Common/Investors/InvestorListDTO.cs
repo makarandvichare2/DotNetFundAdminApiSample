@@ -1,7 +1,7 @@
 ﻿namespace FundAdministration.Common.Investors;
 
 public record InvestorListDTO(
-    Guid guid,
+    Guid id,
     string fullName,
     string emailId,
     string fundName);

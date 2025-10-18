@@ -4,14 +4,14 @@ using FundAdministration.Common.Transactions;
 using FundAdministration.Infrastructure.Data.Queries.Transactions;
 namespace FundAdministration.UseCases.Transactions.List;
 
-public class GetTransactionByInvestorHandler(ITransactionByInvestorQueryService _query)
-  : IQueryHandler<GetTransactionByInvestorQuery, Result<IEnumerable<TransactionListDTO>>>
+public class GetTotalAmountGroupByFundHandler(ITotalAmountGroupByFundQueryService _query)
+  : IQueryHandler<GetTotalAmountGroupByFundQuery, Result<IEnumerable<GroupAmountByFundListDTO>>>
 {
-  public async Task<Result<IEnumerable<TransactionListDTO>>> Handle(GetTransactionByInvestorQuery request, CancellationToken cancellationToken)
+  public async Task<Result<IEnumerable<GroupAmountByFundListDTO>>> Handle(GetTotalAmountGroupByFundQuery request, CancellationToken cancellationToken)
   {
         try
         {
-            var result = await _query.ListAsync(request.investorId);
+            var result = await _query.ListAsync();
 
             return Result.Success(result);
         }

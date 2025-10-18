@@ -1,10 +1,8 @@
 ﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
 using FluentValidation;
-using FundAdministration.Core.Funds;
 using FundAdministration.Core.Investors;
 using FundAdministration.Infrastructure.Data;
-using FundAdministration.UseCases.Investors.Create;
 
 namespace FundAdministration.UseCases.Investors.Create;
 
@@ -26,7 +24,7 @@ public class CreateInvestorHandler(IEfRepository<Investor> _repository,
             );
             var createdItem = await _repository.AddAsync(newItem, cancellationToken);
 
-            return Result.Success(createdItem.GuId);
+            return Result.Success(createdItem.Id);
         }
         catch (ValidationException ex)
         {
