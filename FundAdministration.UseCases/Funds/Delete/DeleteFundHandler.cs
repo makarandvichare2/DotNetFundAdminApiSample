@@ -3,26 +3,40 @@ using Ardalis.Result;
 using Ardalis.SharedKernel;
 using FluentValidation;
 using FundAdministration.Core.Funds;
+using FundAdministration.Infrastructure.Data;
 
 namespace FundAdministration.UseCases.Funds.Delete;
 
-public class DeleteFundHandler(IRepository<Fund> _repository,
+public class DeleteFundHandler(IEfRepository<Fund> _repository,
     IValidator<DeleteFundCommand> _validator)
   : ICommandHandler<DeleteFundCommand, Result<bool>>
 {
     public async Task<Result<bool>> Handle(DeleteFundCommand request,
       CancellationToken cancellationToken)
     {
-        _validator.ValidateAndThrow(request);
+        try
+        {
+            _validator.ValidateAndThrow(request);
 
-        var existingFund = await _repository.GetByIdAsync(request.guid, cancellationToken);
+            var existingFund = await _repository.GetByGuidAsync(request.guid, cancellationToken);
 
-        Guard.Against.Null(existingFund, nameof(existingFund));
+            Guard.Against.Null(existingFund, nameof(existingFund));
 
-        existingFund.UpdateIsDeleted(true);
+            existingFund.UpdateIsDeleted(true);
 
-        await _repository.UpdateAsync(existingFund, cancellationToken);
+            await _repository.UpdateAsync(existingFund, cancellationToken);
 
-        return true;
+            return Result.Success(true);
+        }
+        catch (ValidationException ex)
+        {
+            var errors = ex.Errors.Select(e => new ValidationError(e.PropertyName, e.ErrorMessage));
+            return Result.Invalid(errors);
+        }
+        catch (Exception ex)
+        {
+            // _logger.LogError(ex, "Error creating fund");
+            return Result.Error(ex.Message);
+        }
     }
 }

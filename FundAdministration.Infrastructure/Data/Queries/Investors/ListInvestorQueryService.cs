@@ -1,5 +1,4 @@
-﻿using FundAdministration.UseCases.Funds.List;
-using FundAdministration.UseCases.Investors.List;
+﻿using FundAdministration.Common.Investors;
 using Microsoft.EntityFrameworkCore;
 
 namespace FundAdministration.Infrastructure.Data.Queries.Funds;

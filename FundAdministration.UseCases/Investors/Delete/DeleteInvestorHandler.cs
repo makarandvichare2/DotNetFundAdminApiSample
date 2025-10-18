@@ -4,10 +4,11 @@ using Ardalis.SharedKernel;
 using FluentValidation;
 using FundAdministration.Core.Funds;
 using FundAdministration.Core.Investors;
+using FundAdministration.Infrastructure.Data;
 
 namespace FundAdministration.UseCases.Investors.Delete;
 
-public class DeleteInvestorHandler(IRepository<Investor> _repository,
+public class DeleteInvestorHandler(IEfRepository<Investor> _repository,
     IValidator<DeleteInvestorCommand> _validator)
   : ICommandHandler<DeleteInvestorCommand, Result<bool>>
 {

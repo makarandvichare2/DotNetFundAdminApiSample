@@ -2,10 +2,6 @@
 using Ardalis.SharedKernel;
 using FundAdministration.Infrastructure.Data;
 using FundAdministration.Infrastructure.Data.Queries.Funds;
-using FundAdministration.UseCases.Funds.Get;
-using FundAdministration.UseCases.Funds.List;
-using FundAdministration.UseCases.Investors.Get;
-using FundAdministration.UseCases.Investors.List;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,7 +18,7 @@ public static class InfrastructureServiceExtensions
     services.AddDbContext<AppDbContext>(options =>
      options.UseSqlServer(connectionString));
 
-    services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+    services.AddScoped(typeof(IEfRepository<>), typeof(EfRepository<>));
     services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
     services.AddScoped<IListFundQueryService, ListFundQueryService>();
     services.AddScoped<IGetFundQueryService, GetFundQueryService>();

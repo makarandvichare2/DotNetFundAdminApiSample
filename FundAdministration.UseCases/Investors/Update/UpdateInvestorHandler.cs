@@ -4,10 +4,11 @@ using Ardalis.SharedKernel;
 using FluentValidation;
 using FundAdministration.Core.Funds;
 using FundAdministration.Core.Investors;
+using FundAdministration.Infrastructure.Data;
 
 namespace FundAdministration.UseCases.Investors.Update;
 
-public class UpdateInvestorHandler(IRepository<Investor> _repository,
+public class UpdateInvestorHandler(IEfRepository<Investor> _repository,
     IValidator<UpdateInvestorCommand> _validator)
   : ICommandHandler<UpdateInvestorCommand, Result<bool>>
 {

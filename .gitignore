@@ -15,3 +15,6 @@
 /FundAdministration.UseCases.Tests/bin/Debug/net8.0
 /FundAdministration.UseCases.Tests/obj
 /.vs
+/FundAdministration.DTOs/bin/Debug/net8.0
+/FundAdministration.DTOs/obj
+/FundAdministration.DTOs

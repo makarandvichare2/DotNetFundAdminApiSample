@@ -3,11 +3,12 @@ using Ardalis.SharedKernel;
 using FluentValidation;
 using FundAdministration.Core.Funds;
 using FundAdministration.Core.Investors;
+using FundAdministration.Infrastructure.Data;
 using FundAdministration.UseCases.Investors.Create;
 
 namespace FundAdministration.UseCases.Investors.Create;
 
-public class CreateInvestorHandler(IRepository<Investor> _repository,
+public class CreateInvestorHandler(IEfRepository<Investor> _repository,
     IValidator<CreateInvestorCommand> _validator)
   : ICommandHandler<CreateInvestorCommand, Result<Guid>>
 {

@@ -1,13 +1,13 @@
 using Ardalis.ListStartupServices;
 using Ardalis.SharedKernel;
 using FluentValidation;
+using FundAdministration.Common.Filters;
 using FundAdministration.Core.Funds;
 using FundAdministration.Infrastructure;
 using FundAdministration.Infrastructure.Data;
 using FundAdministration.UseCases.Funds.Create;
 using FundAdministration.UseCases.Funds.Validators;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +18,10 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
     options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 
-builder.Services.AddControllers();
+builder.Services.AddControllers((options) =>
+{
+    options.Filters.Add<SeriLogErrorFilter>();
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

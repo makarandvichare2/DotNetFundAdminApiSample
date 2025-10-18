@@ -1,5 +1,7 @@
 ﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
+using FundAdministration.Common.Funds;
+using FundAdministration.Infrastructure.Data.Queries.Funds;
 
 namespace FundAdministration.UseCases.Funds.Get;
 
@@ -8,8 +10,15 @@ public class GetFundHandler(IGetFundQueryService _query)
 {
   public async Task<Result<CreateFundDataDTO>> Handle(GetFundQuery request, CancellationToken cancellationToken)
   {
-    var result = await _query.FundDataAsync(request.guid);
-
-    return Result.Success(result);
-  }
+        try
+        {
+            var result = await _query.FundDataAsync(request.guid);
+            return Result.Success(result);
+        }
+        catch (Exception ex)
+        {
+            // _logger.LogError(ex, "Error creating fund");
+            return Result.Error(ex.Message);
+        }
+    }
 }

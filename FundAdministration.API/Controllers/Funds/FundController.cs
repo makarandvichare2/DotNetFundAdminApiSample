@@ -1,4 +1,5 @@
-using Ardalis.Result;
+using FundAdministration.API.Extensions;
+using FundAdministration.Common.Funds;
 using FundAdministration.UseCases.Funds.Create;
 using FundAdministration.UseCases.Funds.Delete;
 using FundAdministration.UseCases.Funds.Get;
@@ -6,7 +7,6 @@ using FundAdministration.UseCases.Funds.List;
 using FundAdministration.UseCases.Funds.Update;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-
 namespace FundAdministration.API.Controllers.Funds;
 
 [ApiController]
@@ -21,35 +21,26 @@ public class FundController : ControllerBase
 
     [HttpGet]
     [ProducesResponseType(typeof(List<FundListDTO>), StatusCodes.Status200OK)]
-    public async Task<ActionResult<List<FundListDTO>>> GetListAsync()
+    public async Task<IActionResult> GetListAsync()
     {
-        Result<IEnumerable<FundListDTO>> result = await mediator.Send(new ListFundQuery());
+        var result = await mediator.Send(new ListFundQuery());
 
-        if (result.IsSuccess)
-        {
-            return Ok(result.Value.ToList());
-        }
-
-        return NotFound();
+        return result.ToActionResult();
     }
 
-    [HttpGet]
-    [Route("GetFund/{guid}")]
+    [HttpGet("{guid:guid}")]
     [ProducesResponseType(typeof(CreateFundDataDTO), StatusCodes.Status200OK)]
-    public async Task<ActionResult<CreateFundDataDTO>> GetFundAsync(Guid guid)
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetFundAsync(Guid guid)
     {
-        Result<CreateFundDataDTO> result = await mediator.Send(new GetFundQuery(guid));
+        var result = await mediator.Send(new GetFundQuery(guid));
 
-        if (result.IsSuccess)
-        {
-            return Ok(result.Value);
-        }
-
-        return NotFound();
+        return result.ToActionResult();
     }
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateFund(
             [FromBody] CreateFundRequest request)
     {
@@ -60,31 +51,32 @@ public class FundController : ControllerBase
             );
         var result = await mediator.Send(command);
 
-        return Created(string.Empty, result.Value);
+        return result.ToActionResult();
     }
 
-    [HttpDelete]
+    [HttpDelete("{guid:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> DeleteFund(Guid fundGuid)
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeleteFund(Guid guid)
     {
-        var command = new DeleteFundCommand(fundGuid);
+        var command = new DeleteFundCommand(guid);
         var result = await mediator.Send(command);
-        return Ok(result);
+        return result.ToActionResult();
     }
 
-    [HttpPut]
+    [HttpPut("{guid:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> UpdateFund(
-        [FromBody] UpdateFundRequest request)
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdateFund(Guid guid, [FromBody] UpdateFundRequest request)
     {
         var command = new UpdateFundCommand(
-            request.guid,
+            guid,
             request.fundName,
             request.currencyCode,
             request.launchDate
             );
         var result = await mediator.Send(command);
 
-        return Created(string.Empty, result.Value);
+        return result.ToActionResult();
     }
 }
