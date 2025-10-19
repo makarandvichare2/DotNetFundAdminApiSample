@@ -28,7 +28,7 @@ public static  class ActionResultExtensions
             Title = title,
             Detail = result.Errors.FirstOrDefault(),
             Status = status,
-            Instance = controller.HttpContext.Request.Path
+            Instance = controller.HttpContext?.Request?.Path
         };
     }
 
@@ -48,7 +48,7 @@ public static  class ActionResultExtensions
             Title = "Validation failed",
             Detail = "One or more validation errors occurred.",
             Status = 400,
-            Instance = controller.HttpContext.Request.Path
+            Instance = controller.HttpContext?.Request?.Path
         };
     }
 
