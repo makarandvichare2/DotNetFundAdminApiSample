@@ -3,6 +3,7 @@ using Ardalis.SharedKernel;
 using FundAdministration.Infrastructure.Data;
 using FundAdministration.Infrastructure.Data.Queries.Funds;
 using FundAdministration.Infrastructure.Data.Queries.Investors;
+using FundAdministration.Infrastructure.Data.Queries.Reports;
 using FundAdministration.Infrastructure.Data.Queries.Transactions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -33,6 +34,9 @@ public static class InfrastructureServiceExtensions
 
         services.AddScoped<ITransactionByInvestorQueryService, TransactionByInvestorQueryService>();
         services.AddScoped<ITotalAmountGroupByFundQueryService, TotalAmountGroupByFundQueryService>();
+
+        services.AddScoped<INetInvestmentPerFundQueryService, NetInvestmentPerFundQueryService>();
+        services.AddScoped<ITotalInvestorsByFundQueryService, TotalInvestorsByFundQueryService>();
 
         return services;
   }

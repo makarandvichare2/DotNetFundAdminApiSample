@@ -1,6 +1,6 @@
 ﻿using FundAdministration.Common.Enum;
 
-namespace FundAdministration.API.Controllers.Investors
+namespace FundAdministration.API.Controllers.Transactions
 {
     public record RegisterTransactionRequest(
         TransactionType transactionType,

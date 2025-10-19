@@ -17,7 +17,8 @@ namespace FundAdministration.API.Controllers.Investors;
 /// </summary>
 [ApiController]
 [ApiVersion(1.0)]
-[Route("api/v{version:apiVersion}/Investor")]
+[Route("api/v{version:apiVersion}/[controller]")]
+[ControllerName("Investor")]
 [Authorize]
 public class InvestorV1Controller : ControllerBase
 {

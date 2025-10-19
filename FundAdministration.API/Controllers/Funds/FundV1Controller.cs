@@ -17,7 +17,8 @@ namespace FundAdministration.API.Controllers.Funds;
 /// </summary>
 [ApiController]
 [ApiVersion(1.0)]
-[Route("api/v{version:apiVersion}/Fund")]
+[Route("api/v{version:apiVersion}/[controller]")]
+[ControllerName("Fund")]
 [Authorize]
 public class FundV1Controller : ControllerBase
 {

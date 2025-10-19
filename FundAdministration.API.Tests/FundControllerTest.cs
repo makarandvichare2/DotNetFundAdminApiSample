@@ -218,7 +218,7 @@ namespace FundAdministration.API.Tests
             // Act
             // Assert
             await Assert.ThrowsAsync<Exception>(
-                    () => controller.DeleteFund(id)
+                    () => controller.DeleteFund(Guid.NewGuid())
             );
             
         }

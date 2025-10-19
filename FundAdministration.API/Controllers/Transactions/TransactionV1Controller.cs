@@ -6,7 +6,8 @@ using FundAdministration.UseCases.Transactions.Register;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-namespace FundAdministration.API.Controllers.Investors;
+
+namespace FundAdministration.API.Controllers.Transactions;
 
 /// <summary>
 /// API Controller for managing transactions.
@@ -15,7 +16,8 @@ namespace FundAdministration.API.Controllers.Investors;
 
 [ApiController]
 [ApiVersion(1.0)]
-[Route("api/v{version:apiVersion}/Transaction")]
+[Route("api/v{version:apiVersion}/[controller]")]
+[ControllerName("Transaction")]
 [Authorize]
 public class TransactionV1Controller : ControllerBase
 {
