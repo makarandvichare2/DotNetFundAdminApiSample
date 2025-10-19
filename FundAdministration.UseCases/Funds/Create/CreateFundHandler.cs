@@ -15,7 +15,7 @@ public class CreateFundHandler(ISoftDeleteRepository<Fund> _repository,
     {
         try
         {
-            _validator.ValidateAndThrow(request);
+            await _validator.ValidateAndThrowAsync(request);
 
             var newItem = new Fund(
             request.fundName,

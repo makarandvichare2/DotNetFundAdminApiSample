@@ -15,7 +15,7 @@ public class RegisterTransactionHandler(INonDeletableRepository<Transaction> _re
     {
         try
         {
-            _validator.ValidateAndThrow(request);
+            await _validator.ValidateAndThrowAsync(request);
 
             var newItem = new Transaction(
                 request.investorId,

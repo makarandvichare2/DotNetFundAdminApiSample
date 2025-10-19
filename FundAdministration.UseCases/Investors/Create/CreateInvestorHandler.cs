@@ -15,7 +15,7 @@ public class CreateInvestorHandler(ISoftDeleteRepository<Investor> _repository,
     {
         try
         {
-            _validator.ValidateAndThrow(request);
+            await _validator.ValidateAndThrowAsync(request);
 
             var newItem = new Investor(
                 request.fullName,

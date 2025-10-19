@@ -20,7 +20,7 @@ public static class InfrastructureServiceExtensions
         services.AddDbContext<AppDbContext>(options =>
         options.UseSqlServer(connectionString));
 
-        //services.AddScoped(typeof(IReadRepository<>), typeof(NonDeletableRepository<>));
+        services.AddScoped(typeof(IReadRepository<>), typeof(SoftDeleteRepository<>));
         services.AddScoped(typeof(INonDeletableRepository<>), typeof(NonDeletableRepository<>));
 
         services.AddScoped(typeof(ISoftDeleteRepository<>), typeof(SoftDeleteRepository<>));
