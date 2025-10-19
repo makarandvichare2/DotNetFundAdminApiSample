@@ -14,7 +14,9 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Serilog;
 using System.Reflection;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,11 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
     options.CheckConsentNeeded = context => true;
     options.MinimumSameSitePolicy = SameSiteMode.None;
 });
+
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.FromLogContext()
+    .CreateLogger();
 
 builder.Services.AddControllers();
 builder.Services.AddHealthChecks()
@@ -57,6 +64,8 @@ builder.Services.AddSwaggerGen(options =>
 
 ConfigureMediatR();
 builder.Services.AddInfrastructureServices(builder.Configuration);
+
+builder.Host.UseSerilog();
 
 var app = builder.Build();
 
@@ -93,6 +102,8 @@ app.MapHealthChecks("/healthChecks", new HealthCheckOptions()
 {
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });
+
+Log.Information("Starting Fund Administration API");
 
 app.Run();
 
