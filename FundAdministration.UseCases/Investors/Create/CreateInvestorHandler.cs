@@ -6,7 +6,7 @@ using FundAdministration.Infrastructure.Data;
 
 namespace FundAdministration.UseCases.Investors.Create;
 
-public class CreateInvestorHandler(IEfRepository<Investor> _repository,
+public class CreateInvestorHandler(ISoftDeleteRepository<Investor> _repository,
     IValidator<CreateInvestorCommand> _validator)
   : ICommandHandler<CreateInvestorCommand, Result<Guid>>
 {

@@ -6,7 +6,7 @@ using FundAdministration.Core.Transactions;
 
 namespace FundAdministration.Core.Investors;
 
-public class Investor : ApiEntityBase, IAggregateRoot
+public class Investor : SoftDeletableEntityBase, IAggregateRoot
 {
     public Investor() { }
     public Investor(string fullName,

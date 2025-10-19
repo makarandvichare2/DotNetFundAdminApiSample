@@ -7,7 +7,7 @@ using FundAdministration.Infrastructure.Data;
 
 namespace FundAdministration.UseCases.Investors.Update;
 
-public class UpdateInvestorHandler(IEfRepository<Investor> _repository,
+public class UpdateInvestorHandler(ISoftDeleteRepository<Investor> _repository,
     IValidator<UpdateInvestorCommand> _validator)
   : ICommandHandler<UpdateInvestorCommand, Result<bool>>
 {
@@ -18,7 +18,7 @@ public class UpdateInvestorHandler(IEfRepository<Investor> _repository,
         {
             _validator.ValidateAndThrow(request);
 
-            var existingFund = await _repository.GetByGuidAsync(request.id, cancellationToken);
+            var existingFund = await _repository.GetByIdAsync(request.id, cancellationToken);
 
             Guard.Against.Null(existingFund, nameof(existingFund));
 

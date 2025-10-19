@@ -7,7 +7,7 @@ using FundAdministration.Infrastructure.Data;
 
 namespace FundAdministration.UseCases.Funds.Delete;
 
-public class DeleteFundHandler(IEfRepository<Fund> _repository,
+public class DeleteFundHandler(ISoftDeleteRepository<Fund> _repository,
     IValidator<DeleteFundCommand> _validator)
   : ICommandHandler<DeleteFundCommand, Result<bool>>
 {

@@ -1,12 +1,11 @@
 ﻿using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
 using FundAdministration.Common.Enum;
-using FundAdministration.Core.Base;
 using FundAdministration.Core.Investors;
 
 namespace FundAdministration.Core.Transactions;
 
-public class Transaction : ApiEntityBase, IAggregateRoot
+public class Transaction : EntityBase<Guid>, IAggregateRoot
 {
     public Transaction() { }
     public Transaction(Guid investorId,

@@ -6,7 +6,7 @@ using FundAdministration.Infrastructure.Data;
 
 namespace FundAdministration.UseCases.Funds.Create;
 
-public class CreateFundHandler(IEfRepository<Fund> _repository,
+public class CreateFundHandler(ISoftDeleteRepository<Fund> _repository,
     IValidator<CreateFundCommand> _validator)
   : ICommandHandler<CreateFundCommand, Result<Guid>>
 {

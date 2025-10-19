@@ -5,7 +5,7 @@ using FundAdministration.Core.Investors;
 
 namespace FundAdministration.Core.Funds;
 
-public class Fund : ApiEntityBase, IAggregateRoot
+public class Fund : SoftDeletableEntityBase, IAggregateRoot
 {
     public Fund() { }
     public Fund(string fundName,

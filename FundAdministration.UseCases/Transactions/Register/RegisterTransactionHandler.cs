@@ -6,7 +6,7 @@ using FundAdministration.Infrastructure.Data;
 
 namespace FundAdministration.UseCases.Transactions.Register;
 
-public class RegisterTransactionHandler(IEfRepository<Transaction> _repository,
+public class RegisterTransactionHandler(INonDeletableRepository<Transaction> _repository,
     IValidator<RegisterTransactionCommand> _validator)
   : ICommandHandler<RegisterTransactionCommand, Result<Guid>>
 {
