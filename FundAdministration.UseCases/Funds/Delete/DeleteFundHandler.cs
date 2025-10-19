@@ -16,7 +16,7 @@ public class DeleteFundHandler(ISoftDeleteRepository<Fund> _repository,
     {
         try
         {
-            _validator.ValidateAndThrow(request);
+            await _validator.ValidateAndThrowAsync(request);
 
             var existingFund = await _repository.GetByIdAsync(request.id, cancellationToken);
 

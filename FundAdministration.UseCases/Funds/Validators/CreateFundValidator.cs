@@ -27,8 +27,8 @@ public class CreateFundValidator : AbstractValidator<CreateFundCommand>
          .MinimumLength(DataSchemaConstants.LENGTH_3);
 
         RuleFor(x => x.launchDate)
-         .NotNull()
-         .WithMessage("Launch Date is required.");
+         .NotEqual(DateTime.MinValue)
+         .WithMessage("Launch Date is not valid.");
     }
 
     private async Task<bool> BeUniqueName(string fundName, CancellationToken token)

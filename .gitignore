@@ -20,3 +20,5 @@
 /FundAdministration.Common/bin/Debug/net8.0
 /FundAdministration.Common/obj/Debug/net8.0
 /FundAdministration.Common/obj
+/FundAdministration.Core.Tests/bin/Debug/net8.0
+/FundAdministration.Core.Tests/obj
