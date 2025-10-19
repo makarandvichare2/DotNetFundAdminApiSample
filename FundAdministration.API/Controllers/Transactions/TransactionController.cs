@@ -3,6 +3,7 @@ using FundAdministration.Common.Transactions;
 using FundAdministration.UseCases.Transactions.List;
 using FundAdministration.UseCases.Transactions.Register;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace FundAdministration.API.Controllers.Investors;
 
@@ -12,6 +13,7 @@ namespace FundAdministration.API.Controllers.Investors;
 /// </summary>
 [ApiController]
 [Route("[controller]")]
+[Authorize]
 public class TransactionController : ControllerBase
 {
     private readonly IMediator mediator;

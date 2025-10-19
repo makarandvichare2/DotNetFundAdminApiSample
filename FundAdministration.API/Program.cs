@@ -1,6 +1,7 @@
 using Ardalis.ListStartupServices;
 using Ardalis.SharedKernel;
 using FluentValidation;
+using FundAdministration.API;
 using FundAdministration.API.Middlewares;
 using FundAdministration.Core.Funds;
 using FundAdministration.Infrastructure;
@@ -8,6 +9,7 @@ using FundAdministration.Infrastructure.Data;
 using FundAdministration.UseCases.Funds.Create;
 using FundAdministration.UseCases.Funds.Validators;
 using MediatR;
+using Microsoft.AspNetCore.Authentication;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +21,11 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 });
 
 builder.Services.AddControllers();
+
+// mocking to authenticate endpoint successfully
+builder.Services.AddAuthentication("Mock").AddScheme<AuthenticationSchemeOptions, MockAuthHandler>("Mock", null);
+builder.Services.AddAuthorization();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -55,6 +62,7 @@ if (app.Environment.IsDevelopment())
     app.UseShowAllServicesMiddleware();
 }
 
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 app.MapControllers();

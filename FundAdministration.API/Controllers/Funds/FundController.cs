@@ -6,6 +6,7 @@ using FundAdministration.UseCases.Funds.Get;
 using FundAdministration.UseCases.Funds.List;
 using FundAdministration.UseCases.Funds.Update;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace FundAdministration.API.Controllers.Funds;
 
@@ -15,6 +16,7 @@ namespace FundAdministration.API.Controllers.Funds;
 /// </summary>
 [ApiController]
 [Route("[controller]")]
+[Authorize]
 public class FundController : ControllerBase
 {
     private readonly IMediator mediator;
