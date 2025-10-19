@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using FundAdministration.API.Extensions;
 using FundAdministration.Common.Investors;
 using FundAdministration.UseCases.Investors.Create;
@@ -15,12 +16,13 @@ namespace FundAdministration.API.Controllers.Investors;
 /// Provides endpoints to list, get, create, update, and delete investors.
 /// </summary>
 [ApiController]
-[Route("[controller]")]
+[ApiVersion(1.0)]
+[Route("api/v{version:apiVersion}/Investor")]
 [Authorize]
-public class InvestorController : ControllerBase
+public class InvestorV1Controller : ControllerBase
 {
     private readonly IMediator mediator;
-    public InvestorController(IMediator mediator)
+    public InvestorV1Controller(IMediator mediator)
     {
         this.mediator = mediator;
     }

@@ -39,7 +39,7 @@ namespace FundAdministration.API.Tests
             };
             var fundResult = Result.Success(funds.AsEnumerable());
             mediator.Send(Arg.Any<ListFundQuery>()).Returns(fundResult);
-            var controller = new FundController(mediator);
+            var controller = new FundV1Controller(mediator);
 
             // Act
             var result = await controller.GetListAsync();
@@ -57,7 +57,7 @@ namespace FundAdministration.API.Tests
             };
             var fundResult = Result.NotFound();
             mediator.Send(Arg.Any<ListFundQuery>()).Returns(fundResult);
-            var controller = new FundController(mediator);
+            var controller = new FundV1Controller(mediator);
 
             // Act
             var result = await controller.GetListAsync();
@@ -79,7 +79,7 @@ namespace FundAdministration.API.Tests
             var createFundData = CreateFundData();
             var fundResult = Result.Success(createFundData);
             mediator.Send(Arg.Any<GetFundQuery>()).Returns(fundResult);
-            var controller = new FundController(mediator);
+            var controller = new FundV1Controller(mediator);
             var fundId = Guid.NewGuid();
 
             // Act
@@ -97,7 +97,7 @@ namespace FundAdministration.API.Tests
             var request = CreateFundRequest();
             var fundResult = Result.Success(Guid.NewGuid());
             mediator.Send(Arg.Any<CreateFundCommand>()).Returns(fundResult);
-            var controller = new FundController(mediator);
+            var controller = new FundV1Controller(mediator);
 
             // Act
             var result = await controller.CreateFund(request);
@@ -114,7 +114,7 @@ namespace FundAdministration.API.Tests
             var request = CreateFundRequest();
             var fundResult = Result.Invalid();
             mediator.Send(Arg.Any<CreateFundCommand>()).Returns(fundResult);
-            var controller = new FundController(mediator);
+            var controller = new FundV1Controller(mediator);
 
             // Act
             var result = await controller.CreateFund(request);
@@ -136,7 +136,7 @@ namespace FundAdministration.API.Tests
             var request = UpdateFundRequest();
             var fundResult = Result.Success(true);
             mediator.Send(Arg.Any<UpdateFundCommand>()).Returns(fundResult);
-            var controller = new FundController(mediator);
+            var controller = new FundV1Controller(mediator);
 
             // Act
             var result = await controller.UpdateFund(request.id,request);
@@ -153,7 +153,7 @@ namespace FundAdministration.API.Tests
             var request = UpdateFundRequest();
             var fundResult = Result.Invalid();
             mediator.Send(Arg.Any<UpdateFundCommand>()).Returns(fundResult);
-            var controller = new FundController(mediator);
+            var controller = new FundV1Controller(mediator);
 
             // Act
             var result = await controller.UpdateFund(request.id, request);
@@ -175,7 +175,7 @@ namespace FundAdministration.API.Tests
             var id = Guid.NewGuid();
             var fundResult = Result.Success(true);
             mediator.Send(Arg.Any<DeleteFundCommand>()).Returns(fundResult);
-            var controller = new FundController(mediator);
+            var controller = new FundV1Controller(mediator);
 
             // Act
             var result = await controller.DeleteFund(id);
@@ -192,7 +192,7 @@ namespace FundAdministration.API.Tests
             var id = Guid.NewGuid();
             var fundResult = Result.NotFound();
             mediator.Send(Arg.Any<DeleteFundCommand>()).Returns(fundResult);
-            var controller = new FundController(mediator);
+            var controller = new FundV1Controller(mediator);
 
             // Act
             var result = await controller.DeleteFund(id);
@@ -213,7 +213,7 @@ namespace FundAdministration.API.Tests
             var mediator = Substitute.For<IMediator>();
 
             mediator.Send(Arg.Any<DeleteFundCommand>()).ThrowsAsync(new Exception());
-            var controller = new FundController(mediator);
+            var controller = new FundV1Controller(mediator);
 
             // Act
             // Assert

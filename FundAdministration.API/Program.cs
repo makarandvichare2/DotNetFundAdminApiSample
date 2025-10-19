@@ -1,5 +1,6 @@
 using Ardalis.ListStartupServices;
 using Ardalis.SharedKernel;
+using Asp.Versioning;
 using FluentValidation;
 using FundAdministration.API.Middlewares;
 using FundAdministration.API.Mocks;
@@ -21,6 +22,19 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 });
 
 builder.Services.AddControllers();
+
+builder.Services.AddApiVersioning(options =>
+{
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.ReportApiVersions = true;
+})
+.AddMvc() 
+.AddApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'VVV";
+    options.SubstituteApiVersionInUrl = true;
+});
 
 // mocking to authenticate endpoint successfully
 builder.Services.AddAuthentication("Mock").AddScheme<AuthenticationSchemeOptions, MockAuthHandler>("Mock", null);

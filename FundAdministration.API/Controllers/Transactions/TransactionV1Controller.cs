@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using FundAdministration.API.Extensions;
 using FundAdministration.Common.Transactions;
 using FundAdministration.UseCases.Transactions.List;
@@ -11,13 +12,15 @@ namespace FundAdministration.API.Controllers.Investors;
 /// API Controller for managing transactions.
 /// Provides endpoints to list transactions by investor, get total amounts grouped by fund, and register new transactions.
 /// </summary>
+
 [ApiController]
-[Route("[controller]")]
+[ApiVersion(1.0)]
+[Route("api/v{version:apiVersion}/Transaction")]
 [Authorize]
-public class TransactionController : ControllerBase
+public class TransactionV1Controller : ControllerBase
 {
     private readonly IMediator mediator;
-    public TransactionController(IMediator mediator)
+    public TransactionV1Controller(IMediator mediator)
     {
         this.mediator = mediator;
     }

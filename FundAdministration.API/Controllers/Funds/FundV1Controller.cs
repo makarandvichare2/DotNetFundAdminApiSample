@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using FundAdministration.API.Extensions;
 using FundAdministration.Common.Funds;
 using FundAdministration.UseCases.Funds.Create;
@@ -15,12 +16,13 @@ namespace FundAdministration.API.Controllers.Funds;
 /// Provides endpoints to list, get, create, update, and delete funds.
 /// </summary>
 [ApiController]
-[Route("[controller]")]
+[ApiVersion(1.0)]
+[Route("api/v{version:apiVersion}/Fund")]
 [Authorize]
-public class FundController : ControllerBase
+public class FundV1Controller : ControllerBase
 {
     private readonly IMediator mediator;
-    public FundController(IMediator mediator)
+    public FundV1Controller(IMediator mediator)
     {
         this.mediator = mediator;
     }
