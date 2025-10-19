@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
+using System.Security.Claims;
 using System.Text.Encodings.Web;
 
-namespace FundAdministration.API
+namespace FundAdministration.API.Mocks
 {
     public class MockAuthHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
@@ -16,11 +17,11 @@ namespace FundAdministration.API
         {
             var claims = new[]
             {
-            new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Name, "MockUser"),
-            new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Role, "Admin")
+            new Claim(ClaimTypes.Name, "MockUser"),
+            new Claim(ClaimTypes.Role, "Admin")
         };
-            var identity = new System.Security.Claims.ClaimsIdentity(claims, "Mock");
-            var principal = new System.Security.Claims.ClaimsPrincipal(identity);
+            var identity = new ClaimsIdentity(claims, "Mock");
+            var principal = new ClaimsPrincipal(identity);
             var ticket = new AuthenticationTicket(principal, "Mock");
 
             return Task.FromResult(AuthenticateResult.Success(ticket));
