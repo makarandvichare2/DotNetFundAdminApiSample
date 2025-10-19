@@ -41,14 +41,14 @@ public class FundController : ControllerBase
     /// <summary>
     /// Retrieves a specific fund by its unique identifier.
     /// </summary>
-    /// <param name="guid">The unique identifier of the fund.</param>
+    /// <param name="id">The unique identifier of the fund.</param>
     /// <returns>A <see cref="CreateFundDataDTO"/> representing the fund if found; otherwise, a 404 Not Found response.</returns>
-    [HttpGet("{guid:guid}")]
+    [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(CreateFundDataDTO), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetFundAsync(Guid guid)
+    public async Task<IActionResult> GetFundAsync(Guid id)
     {
-        var result = await mediator.Send(new GetFundQuery(guid));
+        var result = await mediator.Send(new GetFundQuery(id));
 
         return result.ToActionResult(this);
     }
@@ -77,14 +77,14 @@ public class FundController : ControllerBase
     /// <summary>
     /// Deletes an existing fund by its unique identifier.
     /// </summary>
-    /// <param name="guid">The unique identifier of the fund to delete.</param>
+    /// <param name="id">The unique identifier of the fund to delete.</param>
     /// <returns>A 204 No Content response if deleted successfully; otherwise, a 404 Not Found response.</returns>
-    [HttpDelete("{guid:guid}")]
+    [HttpDelete("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> DeleteFund(Guid guid)
+    public async Task<IActionResult> DeleteFund(Guid id)
     {
-        var command = new DeleteFundCommand(guid);
+        var command = new DeleteFundCommand(id);
         var result = await mediator.Send(command);
         return result.ToActionResult(this);
     }
@@ -92,16 +92,16 @@ public class FundController : ControllerBase
     /// <summary>
     /// Updates an existing fund.
     /// </summary>
-    /// <param name="guid">The unique identifier of the fund to update.</param>
+    /// <param name="id">The unique identifier of the fund to update.</param>
     /// <param name="request">The <see cref="UpdateFundRequest"/> containing updated fund details.</param>
     /// <returns>A 204 No Content response if updated successfully; otherwise, a 400 Bad Request response.</returns>
-    [HttpPut("{guid:guid}")]
+    [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> UpdateFund(Guid guid, [FromBody] UpdateFundRequest request)
+    public async Task<IActionResult> UpdateFund(Guid id, [FromBody] UpdateFundRequest request)
     {
         var command = new UpdateFundCommand(
-            guid,
+            id,
             request.fundName,
             request.currencyCode,
             request.launchDate

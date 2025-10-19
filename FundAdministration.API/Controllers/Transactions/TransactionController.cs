@@ -25,14 +25,14 @@ public class TransactionController : ControllerBase
     /// <summary>
     /// Retrieves all transactions for a specific investor.
     /// </summary>
-    /// <param name="guid">The unique identifier of the investor.</param>
+    /// <param name="investorId">The unique identifier of the investor.</param>
     /// <returns>A <see cref="TransactionListDTO"/> containing the investor's transactions if found; otherwise, a 404 Not Found response.</returns>
-    [HttpGet("TransactionByInvestor/{guid:guid}")]
+    [HttpGet("TransactionByInvestor/{investorId:guid}")]
     [ProducesResponseType(typeof(TransactionListDTO), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetTransactionByInvestorAsync(Guid guid)
+    public async Task<IActionResult> GetTransactionByInvestorAsync(Guid investorId)
     {
-        var result = await mediator.Send(new GetTransactionByInvestorQuery(guid));
+        var result = await mediator.Send(new GetTransactionByInvestorQuery(investorId));
 
         return result.ToActionResult(this);
     }

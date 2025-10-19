@@ -43,12 +43,12 @@ public class InvestorController : ControllerBase
     /// </summary>
     /// <param name="guid">The unique identifier of the investor.</param>
     /// <returns>A <see cref="CreateInvestorDataDTO"/> representing the investor if found; otherwise, a 404 Not Found response.</returns>
-    [HttpGet("{guid:guid}")]
+    [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(CreateInvestorDataDTO), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetInvestorAsync(Guid guid)
+    public async Task<IActionResult> GetInvestorAsync(Guid id)
     {
-        var result = await mediator.Send(new GetInvestorQuery(guid));
+        var result = await mediator.Send(new GetInvestorQuery(id));
 
         return result.ToActionResult(this);
     }
@@ -77,14 +77,14 @@ public class InvestorController : ControllerBase
     /// <summary>
     /// Deletes an existing investor by their unique identifier.
     /// </summary>
-    /// <param name="guid">The unique identifier of the investor to delete.</param>
+    /// <param name="id">The unique identifier of the investor to delete.</param>
     /// <returns>A 204 No Content response if deleted successfully; otherwise, a 404 Not Found response.</returns>
-    [HttpDelete("{guid:guid}")]
+    [HttpDelete("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> DeleteInvestor(Guid guid)
+    public async Task<IActionResult> DeleteInvestor(Guid id)
     {
-        var command = new DeleteInvestorCommand(guid);
+        var command = new DeleteInvestorCommand(id);
         var result = await mediator.Send(command);
         return result.ToActionResult(this);
     }
@@ -92,16 +92,16 @@ public class InvestorController : ControllerBase
     /// <summary>
     /// Updates an existing investor.
     /// </summary>
-    /// <param name="guid">The unique identifier of the investor to update.</param>
+    /// <param name="id">The unique identifier of the investor to update.</param>
     /// <param name="request">The <see cref="UpdateInvestorRequest"/> containing updated investor details.</param>
     /// <returns>A 204 No Content response if updated successfully; otherwise, a 400 Bad Request response.</returns>
-    [HttpPut("{guid:guid}")]
+    [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> UpdateInvestor(Guid guid, [FromBody] UpdateInvestorRequest request)
+    public async Task<IActionResult> UpdateInvestor(Guid id, [FromBody] UpdateInvestorRequest request)
     {
         var command = new UpdateInvestorCommand(
-            guid,
+            id,
             request.fullName,
             request.emailId,
             request.fundId

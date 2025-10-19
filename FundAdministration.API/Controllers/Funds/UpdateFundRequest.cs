@@ -1,7 +1,7 @@
 ﻿namespace FundAdministration.API.Controllers.Funds
 {
     public record UpdateFundRequest(
-        Guid guid,
+        Guid id,
         string fundName,
         string currencyCode,
         DateTime launchDate);

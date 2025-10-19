@@ -1,19 +1,24 @@
 using Ardalis.Result;
+using Azure.Core;
 using FundAdministration.API.Controllers.Funds;
 using FundAdministration.Common.Funds;
+using FundAdministration.Core.Funds;
 using FundAdministration.UseCases.Funds.Create;
+using FundAdministration.UseCases.Funds.Delete;
 using FundAdministration.UseCases.Funds.Get;
 using FundAdministration.UseCases.Funds.List;
+using FundAdministration.UseCases.Funds.Update;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 
 namespace FundAdministration.API.Tests
 {
     public class FundControllerTest
     {
         [Fact]
-        public async Task GetListAsync_MustReturnOkObjectResult()
+        public async Task GetListAsync_ReturnOkObjectResult()
         {
             // Arrange
             var mediator = Substitute.For<IMediator>();
@@ -44,7 +49,7 @@ namespace FundAdministration.API.Tests
         }
 
         [Fact]
-        public async Task GetListAsync_MustReturnNotFound()
+        public async Task GetListAsync_ReturnNotFound()
         {
             // Arrange
             var mediator = Substitute.For<IMediator>();
@@ -67,7 +72,7 @@ namespace FundAdministration.API.Tests
         }
 
         [Fact]
-        public async Task GetFundAsync_MustReturnOkObjectResult()
+        public async Task GetFundAsync_ReturnOkObjectResult()
         {
             // Arrange
             var mediator = Substitute.For<IMediator>();
@@ -85,20 +90,137 @@ namespace FundAdministration.API.Tests
         }
 
         [Fact]
-        public async Task CreateFund_MustCreatedResult()
+        public async Task CreateFund_ReturnOkObjectResult()
         {
             // Arrange
             var mediator = Substitute.For<IMediator>();
-            var createFundRequest = CreateFundRequest();
+            var request = CreateFundRequest();
             var fundResult = Result.Success(Guid.NewGuid());
             mediator.Send(Arg.Any<CreateFundCommand>()).Returns(fundResult);
             var controller = new FundController(mediator);
 
             // Act
-            var result = await controller.CreateFund(createFundRequest);
+            var result = await controller.CreateFund(request);
 
             // Assert
             Assert.IsType<OkObjectResult>(result);
+        }
+
+        [Fact]
+        public async Task CreateFund_ReturnBadRequest()
+        {
+            // Arrange
+            var mediator = Substitute.For<IMediator>();
+            var request = CreateFundRequest();
+            var fundResult = Result.Invalid();
+            mediator.Send(Arg.Any<CreateFundCommand>()).Returns(fundResult);
+            var controller = new FundController(mediator);
+
+            // Act
+            var result = await controller.CreateFund(request);
+
+            // Assert
+            Assert.IsType<BadRequestObjectResult>(result);
+            var badRequestResult = (BadRequestObjectResult)result;
+            Assert.IsType<ValidationProblemDetails>(badRequestResult.Value);
+            var problemDetails = (ValidationProblemDetails)badRequestResult.Value;
+            Assert.Equal(400, problemDetails.Status);
+            Assert.Equal("Validation failed", problemDetails.Title);
+        }
+
+        [Fact]
+        public async Task UpdateFund_ReturnOkObjectResult()
+        {
+            // Arrange
+            var mediator = Substitute.For<IMediator>();
+            var request = UpdateFundRequest();
+            var fundResult = Result.Success(true);
+            mediator.Send(Arg.Any<UpdateFundCommand>()).Returns(fundResult);
+            var controller = new FundController(mediator);
+
+            // Act
+            var result = await controller.UpdateFund(request.id,request);
+
+            // Assert
+            Assert.IsType<OkObjectResult>(result);
+        }
+
+        [Fact]
+        public async Task UpdateFund_ReturnBadRequest()
+        {
+            // Arrange
+            var mediator = Substitute.For<IMediator>();
+            var request = UpdateFundRequest();
+            var fundResult = Result.Invalid();
+            mediator.Send(Arg.Any<UpdateFundCommand>()).Returns(fundResult);
+            var controller = new FundController(mediator);
+
+            // Act
+            var result = await controller.UpdateFund(request.id, request);
+
+            // Assert
+            Assert.IsType<BadRequestObjectResult>(result);
+            var badRequestResult = (BadRequestObjectResult)result;
+            Assert.IsType<ValidationProblemDetails>(badRequestResult.Value);
+            var problemDetails = (ValidationProblemDetails)badRequestResult.Value;
+            Assert.Equal(400, problemDetails.Status);
+            Assert.Equal("Validation failed", problemDetails.Title);
+        }
+
+        [Fact]
+        public async Task DeleteFund_ReturnOkObjectResult()
+        {
+            // Arrange
+            var mediator = Substitute.For<IMediator>();
+            var id = Guid.NewGuid();
+            var fundResult = Result.Success(true);
+            mediator.Send(Arg.Any<DeleteFundCommand>()).Returns(fundResult);
+            var controller = new FundController(mediator);
+
+            // Act
+            var result = await controller.DeleteFund(id);
+
+            // Assert
+            Assert.IsType<OkObjectResult>(result);
+        }
+
+        [Fact]
+        public async Task DeleteFund_ReturnNotFound()
+        {
+            // Arrange
+            var mediator = Substitute.For<IMediator>();
+            var id = Guid.NewGuid();
+            var fundResult = Result.NotFound();
+            mediator.Send(Arg.Any<DeleteFundCommand>()).Returns(fundResult);
+            var controller = new FundController(mediator);
+
+            // Act
+            var result = await controller.DeleteFund(id);
+
+            // Assert
+            Assert.IsType<NotFoundObjectResult>(result);
+            var notFoundResult = (NotFoundObjectResult)result;
+            Assert.IsType<ProblemDetails>(notFoundResult.Value);
+            var problemDetails = (ProblemDetails)notFoundResult.Value;
+            Assert.Equal(404, problemDetails.Status);
+            Assert.Equal("Resouce not found", problemDetails.Title);
+        }
+
+        [Fact]
+        public async Task DeleteFund_ReturnInternalError()
+        {
+            // Arrange
+            var mediator = Substitute.For<IMediator>();
+
+            mediator.Send(Arg.Any<DeleteFundCommand>()).ThrowsAsync(new Exception());
+            var controller = new FundController(mediator);
+
+            // Act
+            // Assert
+            await Assert.ThrowsAsync<Exception>(
+                    () => controller.DeleteFund(id)
+            );
+            
         }
 
         #region private methods
@@ -137,6 +259,11 @@ namespace FundAdministration.API.Tests
         private CreateFundRequest CreateFundRequest()
         {
             return new CreateFundRequest("Fund 1", "EUR", DateTime.Now);
+        }
+
+        private UpdateFundRequest UpdateFundRequest()
+        {
+            return new UpdateFundRequest(Guid.NewGuid(),"Fund 1", "EUR", DateTime.Now);
         }
         #endregion
     }
