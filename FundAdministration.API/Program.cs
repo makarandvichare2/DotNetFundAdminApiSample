@@ -9,8 +9,11 @@ using FundAdministration.Infrastructure;
 using FundAdministration.Infrastructure.Data;
 using FundAdministration.UseCases.Funds.Create;
 using FundAdministration.UseCases.Funds.Validators;
+using HealthChecks.UI.Client;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,7 +25,11 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 });
 
 builder.Services.AddControllers();
-
+builder.Services.AddHealthChecks()
+    .AddSqlServer(builder.Configuration.GetConnectionString("SqlServerConnection"),
+                  name: "SQL Server",
+                  healthQuery: "SELECT 1;",
+                  failureStatus: HealthStatus.Unhealthy);
 builder.Services.AddApiVersioning(options =>
 {
     options.DefaultApiVersion = new ApiVersion(1, 0);
@@ -70,7 +77,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        //c.SwaggerEndpoint("v1/swagger.json", "Fund Administration API v1");
     });
     app.UseDeveloperExceptionPage();
     app.UseShowAllServicesMiddleware();
@@ -82,6 +88,11 @@ app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 app.MapControllers();
 
 await SeedDatabase(app);
+
+app.MapHealthChecks("/healthChecks", new HealthCheckOptions()
+{
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 
 app.Run();
 
