@@ -115,8 +115,7 @@ static async Task SeedDatabase(WebApplication app)
     try
     {
         var context = services.GetRequiredService<AppDbContext>();
-       // context.Database.Migrate(); // uncomment for creating the db on running the api
-        context.Database.EnsureCreated();
+         context.Database.EnsureCreated();
         await SeedData.InitializeAsync(context);
     }
     catch (Exception ex)
