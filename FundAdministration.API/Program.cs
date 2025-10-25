@@ -14,6 +14,8 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Polly.Caching.Memory;
+using Polly.Caching;
 using Serilog;
 using System.Reflection;
 
@@ -31,6 +33,8 @@ Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
     .CreateLogger();
 
+builder.Services.AddMemoryCache();
+builder.Services.AddSingleton<IAsyncCacheProvider, MemoryCacheProvider>();
 builder.Services.AddControllers();
 builder.Services.AddHealthChecks()
     .AddSqlServer(builder.Configuration.GetConnectionString("SqlServerConnection"),
