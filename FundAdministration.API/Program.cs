@@ -137,3 +137,4 @@ void ConfigureMediatR()
     builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
     builder.Services.AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
 }
+public partial class Program { }

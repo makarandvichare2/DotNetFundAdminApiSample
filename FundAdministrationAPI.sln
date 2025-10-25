@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FundAdministration.UseCases
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FundAdministration.Common", "FundAdministration.Common\FundAdministration.Common.csproj", "{49653339-38D5-4869-96DB-E2DDB4EC57FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FundAdministration.Infrastructure.Tests", "FundAdministration.Infrastructure.Tests\FundAdministration.Infrastructure.Tests.csproj", "{185D3607-C428-48F7-89B0-2D06CE404D47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FundAdministration.Infrastructure.Tests", "FundAdministration.Infrastructure.Tests\FundAdministration.Infrastructure.Tests.csproj", "{185D3607-C428-48F7-89B0-2D06CE404D47}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FundAdministration.API.Better.Tests", "FundAdministration.API.Better.Tests\FundAdministration.API.Better.Tests.csproj", "{59E31601-DBAE-4666-B536-D8E6E4C3CC19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{185D3607-C428-48F7-89B0-2D06CE404D47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{185D3607-C428-48F7-89B0-2D06CE404D47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{185D3607-C428-48F7-89B0-2D06CE404D47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59E31601-DBAE-4666-B536-D8E6E4C3CC19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59E31601-DBAE-4666-B536-D8E6E4C3CC19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59E31601-DBAE-4666-B536-D8E6E4C3CC19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59E31601-DBAE-4666-B536-D8E6E4C3CC19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
