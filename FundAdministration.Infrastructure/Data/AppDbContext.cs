@@ -11,9 +11,9 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Investor> Investors => Set<Investor>();
     public DbSet<Transaction> Transactions => Set<Transaction>();
     protected override void OnModelCreating(ModelBuilder modelBuilder)
-  {
-    base.OnModelCreating(modelBuilder);
-    modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-  }
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+    }
 
 }

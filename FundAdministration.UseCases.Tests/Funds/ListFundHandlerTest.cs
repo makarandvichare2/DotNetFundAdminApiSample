@@ -3,17 +3,19 @@ using FundAdministration.Common.Funds;
 using FundAdministration.Infrastructure.Data.Queries.Funds;
 using FundAdministration.UseCases.Funds.List;
 using NSubstitute;
+using Polly.Caching;
 
 namespace FundAdministration.UseCases.Tests.Funds
 {
     public class ListFundHandlerTest
     {
         private readonly IListFundQueryService _service = Substitute.For<IListFundQueryService>();
+        private readonly IAsyncCacheProvider _cacheProvider = Substitute.For<IAsyncCacheProvider>();
         private ListFundHandler _handler;
 
         public ListFundHandlerTest()
         {
-            _handler = new ListFundHandler(_service);
+            _handler = new ListFundHandler(_service, _cacheProvider);
         }
         [Fact]
         public async Task Handle_WithValidInput_ReturnFunds()
