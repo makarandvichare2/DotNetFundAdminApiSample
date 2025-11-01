@@ -14,12 +14,12 @@ public static class InfrastructureServiceExtensions
 {
   public static IServiceCollection AddInfrastructureServices(
     this IServiceCollection services,
-    ConfigurationManager config)
+    IConfiguration config)
   {
         string? connectionString = config.GetConnectionString("SqlServerConnection");
         Guard.Against.Null(connectionString);
-        services.AddDbContext<AppDbContext>(options =>
-        options.UseSqlServer(connectionString));
+
+        services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
         services.AddScoped(typeof(IReadRepository<>), typeof(SoftDeleteRepository<>));
         services.AddScoped(typeof(INonDeletableRepository<>), typeof(NonDeletableRepository<>));

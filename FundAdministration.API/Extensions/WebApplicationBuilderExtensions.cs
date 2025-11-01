@@ -27,12 +27,6 @@ namespace FundAdministration.API.Extensions
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             builder.Services.AddExceptionHandler<ProblemDetailsExceptionHandler>();
-
-            Log.Logger = new LoggerConfiguration()
-                .ReadFrom.Configuration(builder.Configuration)
-                .Enrich.FromLogContext()
-                .CreateLogger();
-
             builder.Services.AddMemoryCache();
             builder.Services.AddSingleton<IAsyncCacheProvider, MemoryCacheProvider>();
             builder.Services.AddControllers();
